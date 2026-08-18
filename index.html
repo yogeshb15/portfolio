@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yogesh Bhardwaj — AI/ML Research Engineer &amp; Cosmologist</title>
+<meta name="description" content="Yogesh Bhardwaj — AI/ML Research Engineer, LLM Evaluation, Data Scientist, and PhD Cosmologist. Research, projects, and publications.">
+
+<link rel="icon" type="image/jpeg" href="picture.jpg">
+<meta property="og:title" content="Yogesh Bhardwaj — AI/ML Research Engineer & Cosmologist">
+<meta property="og:description" content="AI/ML Research Engineer, LLM Evaluation, Data Scientist, and PhD Cosmologist.">
+<meta property="og:image" content="https://yogeshb15.github.io/portfolio/picture.jpg">
+<meta property="og:url" content="https://yogeshb15.github.io/portfolio/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://yogeshb15.github.io/portfolio/picture.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --void:#050507;
+    --paper:#EDE9E2;
+    --ink:#C8C4BC;
+    --brass:#B08D57;
+    --brass-bright:#D4B384;
+    --muted:#8A8790;
+    --line:rgba(237,233,226,0.10);
+    --line-strong:rgba(237,233,226,0.18);
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
+
+  body{
+    font-family:'Inter', sans-serif;
+    line-height:1.7;
+    color:var(--ink);
+    background:var(--void);
+    min-height:100vh;
+  }
+
+  h1,h2,h3{ font-family:'Space Grotesk', sans-serif; }
+  a{ color:var(--brass-bright); }
+
+  .container{ max-width:1040px; margin:0 auto; padding:0 32px; }
+
+  /* ================= HERO (only place the 3D scene lives) ================= */
+  header.hero{
+    position:relative;
+    height:100vh;
+    min-height:560px;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    background:#050507;
+  }
+  #hero-canvas-wrap{
+    position:absolute;
+    inset:0;
+    z-index:0;
+  }
+  #hero-canvas-wrap canvas{ display:block; width:100%; height:100%; }
+
+  header.hero::after{
+    /* readability scrim: darkens the lower-left where the headline sits, without flattening the whole scene */
+    content:"";
+    position:absolute; inset:0; z-index:1;
+    background:linear-gradient(100deg, rgba(5,5,7,0.88) 0%, rgba(5,5,7,0.55) 38%, rgba(5,5,7,0.15) 62%, transparent 78%);
+    pointer-events:none;
+  }
+
+  .hero-content{ position:relative; z-index:2; width:100%; }
+  .hero-inner{ max-width:560px; }
+
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:0.74rem;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--brass);
+    margin-bottom:22px;
+  }
+
+  h1.name{
+    font-size:clamp(2.8rem, 7vw, 5.4rem);
+    font-weight:600;
+    letter-spacing:-0.03em;
+    line-height:0.98;
+    color:var(--paper);
+    margin-bottom:20px;
+  }
+
+  .tagline{
+    font-size:clamp(1rem, 1.6vw, 1.15rem);
+    color:var(--ink);
+    margin-bottom:40px;
+    max-width:36ch;
+    line-height:1.6;
+  }
+
+  .contact-info{ display:flex; flex-wrap:wrap; align-items:center; font-family:'JetBrains Mono', monospace; font-size:0.78rem; }
+  .contact-item{ color:var(--muted); padding-right:16px; margin-right:16px; border-right:1px solid var(--line-strong); }
+  .contact-item:last-child{ border-right:none; margin-right:0; padding-right:0; }
+  .contact-item a{ color:var(--paper); text-decoration:none; border-bottom:1px solid transparent; padding-bottom:2px; transition:color 0.2s ease, border-color 0.2s ease; }
+  .contact-item a:hover{ color:var(--brass-bright); border-color:var(--brass); }
+
+  .scroll-cue{
+    position:absolute; bottom:36px; left:32px; z-index:2;
+    font-family:'JetBrains Mono', monospace; font-size:0.7rem; color:var(--muted);
+    letter-spacing:0.14em; text-transform:uppercase;
+    display:flex; align-items:center; gap:12px;
+  }
+  .scroll-cue::after{ content:""; width:34px; height:1px; background:var(--brass); animation:scrollpulse 2.2s ease-in-out infinite; }
+  @keyframes scrollpulse{ 0%,100%{ opacity:0.3; width:20px; } 50%{ opacity:1; width:44px; } }
+  @media (prefers-reduced-motion: reduce){ .scroll-cue::after{ animation:none; width:34px; } }
+
+  /* ================= NAV (solid, always readable, robustly centered) ================= */
+  nav{
+    position:sticky;
+    top:0;
+    z-index:50;
+    width:100%;
+    background:rgba(5,5,7,0.92);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    display:flex;
+    justify-content:center;
+  }
+  nav ul{
+    max-width:1040px;
+    width:100%;
+    margin:0 auto;
+    padding:16px 32px;
+    display:flex;
+    list-style:none;
+    gap:26px;
+    flex-wrap:wrap;
+    align-items:center;
+  }
+  nav a{
+    text-decoration:none;
+    color:var(--muted);
+    font-size:0.78rem;
+    font-family:'JetBrains Mono', monospace;
+    padding-bottom:3px;
+    border-bottom:1px solid transparent;
+    transition:color 0.2s ease, border-color 0.2s ease;
+    white-space:nowrap;
+  }
+  nav a:hover{ color:var(--paper); border-color:var(--brass); }
+
+  /* ================= CONTENT SECTIONS: solid background, no competing motion ================= */
+  main{ background:var(--void); position:relative; z-index:2; }
+
+  section{
+    padding:68px 0;
+    border-top:1px solid var(--line);
+    opacity:0;
+    transform:translateY(20px);
+    transition:opacity 0.7s ease, transform 0.7s ease;
+  }
+  section.in-view{ opacity:1; transform:translateY(0); }
+  @media (prefers-reduced-motion: reduce){ section{ opacity:1; transform:none; transition:none; } }
+
+  h2{
+    color:var(--paper);
+    margin-bottom:32px;
+    font-size:clamp(1.3rem, 2.4vw, 1.7rem);
+    font-weight:600;
+    letter-spacing:-0.01em;
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+  }
+  h2::before{ content:""; width:28px; height:1px; background:var(--brass); flex-shrink:0; }
+
+  h3{ color:var(--paper); margin-bottom:8px; font-size:1.05em; font-weight:600; }
+  p{ color:var(--ink); }
+
+  .highlight-box{ padding:22px 0 22px 22px; margin:20px 0; border-left:1px solid var(--brass); }
+  .highlight-box h3{ color:var(--brass-bright); }
+
+  /* ---------- Experience ---------- */
+  .experience-item{ margin-bottom:30px; padding-bottom:28px; border-bottom:1px solid var(--line); }
+  .experience-item:last-child{ border-bottom:none; margin-bottom:0; padding-bottom:0; }
+  .experience-item .company{ font-weight:600; color:var(--paper); font-size:0.98em; }
+  .experience-item .meta-row{
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px;
+    font-family:'JetBrains Mono', monospace; font-size:0.72rem; color:var(--muted);
+    margin-bottom:8px; text-transform:uppercase; letter-spacing:0.04em;
+  }
+  .experience-item h3{ margin-top:2px; color:var(--brass-bright); font-size:1em; }
+
+  /* ---------- Projects ---------- */
+  .projects-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1px; background:var(--line); border:1px solid var(--line); }
+  .project-card{ background:var(--void); padding:26px; transition:background 0.25s ease; display:flex; flex-direction:column; gap:14px; }
+  .project-card:hover{ background:rgba(176,141,87,0.06); }
+  .project-card h3{ font-size:1em; }
+  .project-card p{ font-size:0.88rem; color:var(--muted); flex-grow:1; line-height:1.6; }
+  .project-tags{ display:flex; flex-wrap:wrap; gap:8px; }
+  .project-tags span{ font-family:'JetBrains Mono', monospace; font-size:0.66rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.03em; }
+  .project-tags span:not(:last-child)::after{ content:"·"; margin-left:8px; color:var(--line-strong); }
+  .project-card .repo-link{ font-family:'JetBrains Mono', monospace; font-size:0.76rem; text-decoration:none; color:var(--brass); border-bottom:1px solid transparent; display:inline-block; width:fit-content; transition:color 0.2s ease, border-color 0.2s ease; }
+  .project-card .repo-link:hover{ color:var(--brass-bright); border-color:var(--brass-bright); }
+
+  /* ---------- Publications ---------- */
+  .publication{ margin-bottom:24px; padding-bottom:18px; border-bottom:1px solid var(--line); }
+  .publication:last-child{ border-bottom:none; }
+  .publication h3 a{ color:var(--paper); text-decoration:none; }
+  .publication h3 a:hover{ color:var(--brass-bright); }
+  .publication .date{ font-family:'JetBrains Mono', monospace; font-style:normal; font-size:0.74rem; color:var(--muted); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.03em; }
+
+  /* ---------- Skills ---------- */
+  .skills-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:36px 28px; }
+  .skill-category h4{ color:var(--brass-bright); margin-bottom:12px; font-size:0.82rem; font-family:'JetBrains Mono',monospace; text-transform:uppercase; letter-spacing:0.04em; font-weight:500; }
+  .skill-category ul{ list-style:none; }
+  .skill-category li{ margin-bottom:7px; font-size:0.88rem; color:var(--ink); }
+
+  footer{ text-align:center; padding:56px 24px; color:var(--muted); font-size:0.82rem; border-top:1px solid var(--line); background:var(--void); position:relative; z-index:2; }
+  footer p{ color:var(--muted); }
+  footer .kalam-quote{ margin-top:12px; max-width:560px; margin-left:auto; margin-right:auto; font-style:italic; opacity:0.7; }
+
+  @media (max-width: 768px){
+    .container{ padding:0 22px; }
+    nav ul{ padding:14px 22px; gap:16px; }
+    nav a{ font-size:0.72rem; }
+    section{ padding:48px 0; }
+    .hero-inner{ max-width:100%; }
+    header.hero::after{ background:linear-gradient(180deg, rgba(5,5,7,0.4) 0%, rgba(5,5,7,0.92) 55%, rgba(5,5,7,0.96) 100%); }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div id="hero-canvas-wrap"></div>
+  <div class="container hero-content">
+    <div class="hero-inner">
+      <div class="eyebrow">Cosmology — Applied Mathematics — AI/ML</div>
+      <h1 class="name">Yogesh<br>Bhardwaj</h1>
+      <p class="tagline">AI/ML Research Engineer, LLM Evaluation, Data Scientist, and PhD Cosmologist.</p>
+      <div class="contact-info">
+        <div class="contact-item"><a href="mailto:yogeshb00015@gmail.com">Email</a></div>
+        <div class="contact-item">+91-9467494380</div>
+        <div class="contact-item"><a href="https://www.linkedin.com/in/yogesh-bhardwaj-23069120a/" target="_blank" rel="noopener">LinkedIn</a></div>
+        <div class="contact-item"><a href="https://github.com/yogeshb15" target="_blank" rel="noopener">GitHub</a></div>
+        <div class="contact-item"><a href="https://orcid.org/my-orcid?orcid=0009-0008-6658-8333" target="_blank" rel="noopener">ORCID</a></div>
+        <div class="contact-item"><a href="https://scholar.google.com/citations?hl=en&user=yfr75FUAAAAJ" target="_blank" rel="noopener">Google Scholar</a></div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue">Scroll</div>
+</header>
+
+<nav>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#awards">Awards</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#hobbies">Hobbies</a></li>
+  </ul>
+</nav>
+
+<main>
+<div class="container">
+
+  <section id="about">
+    <h2>About Me</h2>
+    <p>Hello — I'm Yogesh Bhardwaj. By day, across three remote roles, I evaluate and red-team large language models for a living. In parallel, as a PhD researcher, I build the mathematics behind published cosmology. Most people bring one half of that. I bring both, and I've stopped being surprised at how often they overlap.</p>
+    <br>
+    <p>I'm an Applied Mathematics PhD researcher at Delhi Technological University, working on how the universe expands — matter creation cosmology, modified gravity, dark energy — some of the largest structures in existence, explained through some of the most demanding mathematics I know. At Turing, Innodata, and previously Outlier, I design the adversarial problems that expose exactly where and why AI models fail at reasoning, then build the rubric-based grading systems that turn those failures into measurable improvements.</p>
+    <br>
+    <p>Lately that's meant building my own tools too — eight original research projects connecting cosmology and AI/ML directly: neural networks that emulate cosmological models 35x faster than direct integration, a physics-informed neural network built from scratch with hand-rolled automatic differentiation, and benchmark infrastructure for testing exactly how LLMs reason about physics. All public, all real data, all results reported honestly — including the unglamorous ones.</p>
+
+    <div class="highlight-box">
+      <h3>My Philosophy</h3>
+      <p>"Somewhere, something incredible is waiting to be known." — Carl Sagan. That's the instinct behind everything here: constantly exploring the interplay between mathematics, cosmology, and machine intelligence, using Python, MCMC, Mathematica, and modern ML to connect theoretical models with real, checkable results.</p>
+    </div>
+  </section>
+
+  <section id="research">
+    <h2>Research Focus</h2>
+
+    <div class="highlight-box">
+      <h3>Matter Creation Cosmology</h3>
+      <p>I explore how the universe expands through gravitationally induced matter creation — non-equilibrium thermodynamic processes within modified gravity theories, particularly f(Q) gravity. This research asks whether continuous matter creation can explain cosmic acceleration without invoking dark energy at all.</p>
+    </div>
+
+    <div class="highlight-box">
+      <h3>Modified Gravity Theories</h3>
+      <p>My work in f(Q) gravity formalism examines alternatives to general relativity for explaining cosmic acceleration. I build generalized Chaplygin gas models and run statistical analysis against real observational datasets to test how viable these theoretical frameworks actually are.</p>
+    </div>
+
+    <div class="highlight-box">
+      <h3>Bulk Viscous Cosmology</h3>
+      <p>Another core thread: incorporating bulk viscous dissipation into cosmological models, investigating how bulk viscosity affects cosmic dynamics alongside matter creation and exotic equations of state like the Modified Chaplygin Gas — with a close eye on thermodynamic consistency throughout.</p>
+    </div>
+
+    <div class="highlight-box">
+      <h3>AI in Scientific Research</h3>
+      <p>I combine the physics research background above with AI/ML engineering — building benchmark infrastructure that tests LLM reasoning on physics and mathematics problems, designing automated graders that diagnose specific failure modes rather than a binary pass/fail, and applying the same statistical rigor from my cosmology work to evaluating machine intelligence. This is the thread connecting my day job to the project portfolio below.</p>
+    </div>
+  </section>
+
+  <section id="experience">
+    <h2>Professional Experience</h2>
+
+    <div class="experience-item">
+      <div class="meta-row"><span>Jan 2022 – Jun 2026</span><span>Delhi, India</span></div>
+      <div class="company">Delhi Technological University</div>
+      <h3>Senior Researcher</h3>
+      <p>Studying the universe's large-scale structure and expansion history through matter creation cosmology and modified gravity. Published five peer-reviewed papers in <em>Annals of Physics</em>, <em>The European Physical Journal C</em>, and <em>Astrophysics and Space Science</em>; applied MCMC-based statistical inference against Pantheon+, cosmic chronometer, BAO, and gamma-ray-burst datasets; reduced simulation computation time by 40% by redesigning the underlying numerical integration methods. Recipient of the Best Researcher Award (Indian Scientist).</p>
+    </div>
+
+    <div class="experience-item">
+      <div class="meta-row"><span>May 2025 – Present · Contract</span><span>Noida, India (Remote)</span></div>
+      <div class="company">Innodata Pvt. Ltd.</div>
+      <h3>Senior Associate — AI Model Training &amp; Research</h3>
+      <p>Designing adversarial mathematics, coding, and multimodal reasoning problems that systematically expose LLM failure modes in instruction-following and multi-step problem-solving. Grading model outputs against detailed accuracy rubrics, converting recurring error patterns into corrections that measurably improve model robustness, and guiding cross-functional review workflows across multiple concurrent client AI projects.</p>
+    </div>
+
+    <div class="experience-item">
+      <div class="meta-row"><span>Apr 2024 – Present · Contract, Part-time</span><span>Delhi, India (Remote)</span></div>
+      <div class="company">Turing</div>
+      <h3>LLM Senior Researcher</h3>
+      <p>Architecting mathematical AI reasoning workflows that integrate applied mathematics with generative AI evaluation pipelines. Evaluating LLM reasoning on quantitative and scientific problem domains, identifying systematic gaps between model outputs and verified ground truth, and translating findings into concrete model-improvement recommendations for cross-functional AI research teams.</p>
+    </div>
+
+    <div class="experience-item">
+      <div class="meta-row"><span>Nov 2022 – Apr 2025 · Contract</span><span>San Francisco, CA, USA (Remote)</span></div>
+      <div class="company">Outlier</div>
+      <h3>AI Code Trainer / LLM Evaluator</h3>
+      <p>Evaluated and improved 5,000+ AI-generated code solutions across Python, Java, C++, and MATLAB, built 1,000+ test cases to catch edge-case failures, and reduced code execution time by up to 45% through algorithmic analysis — while writing the clear, human-readable feedback that helps a model actually learn from its mistakes.</p>
+    </div>
+
+    <div class="experience-item">
+      <div class="meta-row"><span>Jan 2023 – Aug 2023 · Contract</span><span>Patna, India (Remote)</span></div>
+      <div class="company">I.A.S. Maths Academy</div>
+      <h3>Mathematics Specialist</h3>
+      <p>Designed and administered 200+ assessments for 500+ students (92% satisfaction rate), improved student performance by 35% through targeted feedback, and developed curriculum materials spanning advanced calculus, linear algebra, and differential equations.</p>
+    </div>
+
+    <div class="experience-item">
+      <div class="meta-row"><span>Jan 2020 – Jan 2021 · Contract</span><span>California, USA (Remote)</span></div>
+      <div class="company">Course Hero</div>
+      <h3>Subject Matter Expert &amp; Reviewer</h3>
+      <p>Mentored 25+ junior staff members (lifting team productivity 40%), reviewed 3,000+ academic solutions at a 99% accuracy rate, and cut content errors by 55% by building out new quality assurance protocols.</p>
+    </div>
+
+    <div class="experience-item">
+      <div class="meta-row"><span>Feb 2020 – Dec 2020 · Contract</span><span>California, USA (Remote)</span></div>
+      <div class="company">Chegg</div>
+      <h3>Subject Matter Expert</h3>
+      <p>Provided expert guidance across 15+ advanced mathematics subject areas, earning a 4.9/5.0 student rating with a 95% solution acceptance rate, and built test-series solutions used by 10,000+ students.</p>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>Key Projects</h2>
+    <p style="color:var(--muted); margin-bottom:24px; font-size:0.92rem;">Eight original research projects connecting cosmology and AI/ML — real data, honestly reported results, all public on GitHub.</p>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <h3>CosmoBench-Gen</h3>
+        <p>Auto-generated cosmology reasoning benchmark with a symbolic grader that diagnoses specific errors — sign mistakes, dropped terms, unit conversions — instead of a binary right/wrong. 100% diagnostic accuracy on validation cases.</p>
+        <div class="project-tags"><span>Python</span><span>NumPy</span><span>SciPy</span></div>
+        <a class="repo-link" href="https://github.com/yogeshb15/cosmobench-gen" target="_blank" rel="noopener">View repository →</a>
+      </div>
+
+      <div class="project-card">
+        <h3>HostMass-Predictor</h3>
+        <p>Full ML pipeline predicting supernova host-galaxy mass from light-curve data alone. The honest finding: a simple regularized linear model outright beat Random Forest and Gradient Boosting.</p>
+        <div class="project-tags"><span>Python</span><span>scikit-learn</span><span>Pandas</span></div>
+        <a class="repo-link" href="https://github.com/yogeshb15/hostmass-predictor" target="_blank" rel="noopener">View repository →</a>
+      </div>
+
+      <div class="project-card">
+        <h3>SN-Anomaly-Detector</h3>
+        <p>Isolation Forest across real Pantheon+SH0ES supernova data flags 48 statistically anomalous objects that a standard 3-sigma residual cut misses entirely.</p>
+        <div class="project-tags"><span>Python</span><span>scikit-learn</span><span>SciPy</span></div>
+        <a class="repo-link" href="https://github.com/yogeshb15/sn-anomaly-detector" target="_blank" rel="noopener">View repository →</a>
+      </div>
+
+      <div class="project-card">
+        <h3>DarkEnergy-ModelClassifier</h3>
+        <p>PCA + neural network classifies which of three dark-energy models generated a noisy Hubble diagram — 74.2% accuracy, correctly reproducing a known observational degeneracy.</p>
+        <div class="project-tags"><span>Python</span><span>scikit-learn</span></div>
+        <a class="repo-link" href="https://github.com/yogeshb15/darkenergy-model-classifier" target="_blank" rel="noopener">View repository →</a>
+      </div>
+
+      <div class="project-card">
+        <h3>CosmoEmulator-NN</h3>
+        <p>Neural-network emulator replaces numerical Friedmann-equation integration — a 35x inference speed-up at 14.3 mmag accuracy on fully unseen cosmological models.</p>
+        <div class="project-tags"><span>Python</span><span>scikit-learn</span><span>SciPy</span></div>
+        <a class="repo-link" href="https://github.com/yogeshb15/cosmoemulator-nn" target="_blank" rel="noopener">View repository →</a>
+      </div>
+
+      <div class="project-card">
+        <h3>PINN-CosmoSolver</h3>
+        <p>Physics-informed neural network built from scratch — hand-rolled automatic differentiation, no deep learning framework — solving a nonlinear modified Friedmann equation to 0.004% error.</p>
+        <div class="project-tags"><span>Python</span><span>autograd</span><span>SciPy</span></div>
+        <a class="repo-link" href="https://github.com/yogeshb15/pinn-cosmo-solver" target="_blank" rel="noopener">View repository →</a>
+      </div>
+
+      <div class="project-card">
+        <h3>CosmoSearch</h3>
+        <p>TF-IDF + Latent Semantic Analysis retrieval engine over an original 31-entry cosmology knowledge base — genuine semantic matching, no keyword overlap required.</p>
+        <div class="project-tags"><span>Python</span><span>scikit-learn</span></div>
+        <a class="repo-link" href="https://github.com/yogeshb15/cosmosearch" target="_blank" rel="noopener">View repository →</a>
+      </div>
+
+      <div class="project-card">
+        <h3>H0-Tension-Analyzer</h3>
+        <p>Statistical meta-analysis of the real Hubble tension across six published measurements — reproduces the literature's exact 5.8σ Planck-vs-SH0ES figure as a self-check before trusting the rest.</p>
+        <div class="project-tags"><span>Python</span><span>NumPy</span></div>
+        <a class="repo-link" href="https://github.com/yogeshb15/h0-tension-analyzer" target="_blank" rel="noopener">View repository →</a>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="publications">
+    <h2>Selected Publications</h2>
+
+    <div class="publication">
+      <h3><a href="https://doi.org/10.1016/j.aop.2025.170128" target="_blank" rel="noopener">Late cosmic acceleration by matter creation cosmology in modified gravity</a></h3>
+      <div class="date">Annals of Physics · June 2025</div>
+      <p>Explored the expansion of the universe powered by gravitationally induced "adiabatic" matter creation in f(Q) gravity, comparing models against ΛCDM using Pantheon+, Cosmic Chronometer, and BAO datasets.</p>
+    </div>
+
+    <div class="publication">
+      <h3><a href="https://doi.org/10.1088/1572-9494/ad58c2" target="_blank" rel="noopener">Constraining Variable Generalized Chaplygin Gas model in Matter Creation Cosmology</a></h3>
+      <div class="date">Communications in Theoretical Physics · August 2024</div>
+      <p>Investigated the variable generalized Chaplygin gas model in matter creation cosmology using MCMC methods, constraining parameters with Pantheon, CC, BAO, DESI BAO, quasar, and gamma-ray-burst data.</p>
+    </div>
+
+    <div class="publication">
+      <h3><a href="https://doi.org/10.1007/s10509-024-04267-w" target="_blank" rel="noopener">Matter creation cosmology with generalized Chaplygin gas</a></h3>
+      <div class="date">Astrophysics and Space Science · January 2024</div>
+      <p>Examined flat FLRW models powered by adiabatic matter creation with a generalized Chaplygin gas equation of state, constrained using Pantheon, H(z), and BAO datasets.</p>
+    </div>
+
+    <div class="publication">
+      <h3><a href="https://doi.org/10.1140/epjc/s10052-025-15227-1" target="_blank" rel="noopener">Cosmological dynamics of matter creation with modified Chaplygin gas and bulk viscosity</a></h3>
+      <div class="date">The European Physical Journal C · 2025</div>
+      <p>A comprehensive investigation of a cosmological model combining the Modified Chaplygin Gas equation of state with gravitationally induced matter creation and bulk viscous dissipation in flat FLRW spacetime — deriving modified Friedmann equations and an analytical Hubble parameter, and showing the model reproduces the transition from decelerated to accelerated expansion.</p>
+    </div>
+
+    <div class="publication">
+      <h3><a href="https://doi.org/10.1007/s10509-026-04533-z" target="_blank" rel="noopener">Exploring f(Q) gravity through variable generalized Chaplygin gas and matter creation cosmology</a></h3>
+      <div class="date">Astrophysics and Space Science · 2026</div>
+      <p>Explores f(Q) gravity using variable generalized Chaplygin gas and matter creation cosmology, comparing theoretical predictions against observational data to assess viability against cosmic acceleration.</p>
+    </div>
+
+    <div class="publication">
+      <h3><a href="http://14.139.251.106:8080/jspui/handle/repository/19471?mode=full" target="_blank" rel="noopener">An Extended Multilevel Transportation Problem with Multiple Inputs and Outputs</a></h3>
+      <div class="date">DSpace JSPUI, Delhi Technological University · May 2021</div>
+      <p>Extended the classic multilevel transportation problem with multiple incompatible inputs and outputs per shipment connection, developing linear-programming solutions for efficient transportation strategies.</p>
+    </div>
+  </section>
+
+  <section id="awards">
+    <h2>Awards &amp; Recognitions</h2>
+
+    <div class="highlight-box">
+      <h3>Best Researcher Award</h3>
+      <p>Awarded by Indian Scientist for outstanding contributions to cosmology research. <a href="https://physicistparticle.com/mr-yogesh-bhardwaj-cosmology-best-researcher-award-2210" target="_blank" rel="noopener">View award details →</a></p>
+    </div>
+
+    <div class="highlight-box">
+      <h3>Research Excellence Award</h3>
+      <p>Honored by Delhi Technological University for exceptional performance and significant achievements in academic research.</p>
+    </div>
+  </section>
+
+  <section id="skills">
+    <h2>Skills &amp; Expertise</h2>
+
+    <div class="skills-grid">
+      <div class="skill-category">
+        <h4>Programming Languages</h4>
+        <ul><li>Python</li><li>SQL</li><li>Java</li><li>C++</li><li>MATLAB</li><li>R</li></ul>
+      </div>
+
+      <div class="skill-category">
+        <h4>Python Libraries</h4>
+        <ul><li>NumPy</li><li>Pandas</li><li>Matplotlib</li><li>Scikit-learn</li><li>TensorFlow</li><li>PyTorch</li><li>SciPy</li><li>autograd</li></ul>
+      </div>
+
+      <div class="skill-category">
+        <h4>Machine Learning</h4>
+        <ul><li>Supervised &amp; Unsupervised Learning</li><li>Deep Learning</li><li>Neural Networks</li><li>Explainable AI</li><li>Anomaly Detection</li><li>Feature Engineering</li><li>Model Evaluation</li></ul>
+      </div>
+
+      <div class="skill-category">
+        <h4>LLM Evaluation</h4>
+        <ul><li>Adversarial Problem Design</li><li>Rubric-Based Grading</li><li>Automated Error Diagnosis</li><li>Reasoning Benchmark Design</li><li>AI Red-Teaming</li></ul>
+      </div>
+
+      <div class="skill-category">
+        <h4>Research Areas</h4>
+        <ul><li>Cosmology</li><li>Applied Mathematics</li><li>General Relativity</li><li>Modified Gravity Theories</li><li>Mathematical Modeling</li><li>Data-Driven Astronomy</li></ul>
+      </div>
+
+      <div class="skill-category">
+        <h4>Specializations</h4>
+        <ul><li>Matter Creation Cosmology</li><li>f(Q) Gravity</li><li>Chaplygin Gas Models</li><li>Statistical Analysis</li><li>Large Language Models</li><li>Bulk Viscous Cosmology</li></ul>
+      </div>
+
+      <div class="skill-category">
+        <h4>Tools &amp; Technologies</h4>
+        <ul><li>Mathematica</li><li>LaTeX</li><li>SPSS</li><li>Git</li><li>Docker</li><li>SQL Databases</li></ul>
+      </div>
+
+      <div class="skill-category">
+        <h4>Cosmological Datasets</h4>
+        <ul><li>Pantheon+</li><li>BAO</li><li>DESI BAO</li><li>Quasars</li><li>GRB</li><li>Cosmic Chronometer</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <h2>Education</h2>
+
+    <div class="experience-item">
+      <div class="meta-row"><span>Ongoing Research Program</span><span>Delhi, India</span></div>
+      <div class="company">Delhi Technological University</div>
+      <h3>Ph.D. in Applied Mathematics</h3>
+      <p>Research focus on cosmology and mathematical modeling of the universe's large-scale structure and dynamics.</p>
+    </div>
+
+    <div class="experience-item">
+      <div class="meta-row"><span>Completed</span><span>Delhi, India</span></div>
+      <div class="company">Delhi Technological University</div>
+      <h3>M.Sc. in Applied Mathematics</h3>
+      <p>Rigorous program in advanced mathematical theories and their real-world applications, emphasizing problem-solving and mathematical modeling.</p>
+    </div>
+
+    <div class="experience-item">
+      <div class="meta-row"><span>Completed</span><span>Delhi, India</span></div>
+      <div class="company">University of Delhi</div>
+      <h3>Bachelor of Science</h3>
+      <p>Undergraduate degree providing foundational knowledge in core sciences.</p>
+    </div>
+
+    <div class="experience-item">
+      <div class="meta-row"><span>Completed</span><span>Narnaul, Haryana, India</span></div>
+      <div class="company">Saraswati Senior Secondary School, Nasibpur</div>
+      <h3>High School</h3>
+      <p>Early education establishing strong academic fundamentals.</p>
+    </div>
+  </section>
+
+  <section id="hobbies">
+    <h2>Hobbies</h2>
+
+    <div class="highlight-box">
+      <h3>Cricket</h3>
+      <p>A passion that brings both excitement and discipline. I regularly play in local matches and tournaments — I was part of the team that won the PARAAKRAM 2025 tournament at Delhi Technological University. I even play competitively on mobile: currently ranked 8th globally in Cricket Black (as of Jan '26), recognized as a top run-scorer in a single match. Genuinely worth trying.</p>
+    </div>
+
+    <div class="highlight-box">
+      <h3>Badminton</h3>
+      <p>Playing badminton keeps me active and sharp — a great way to stay fit and enjoy some friendly competition.</p>
+    </div>
+
+    <div class="highlight-box">
+      <h3>Chess</h3>
+      <p>A strategic game I enjoy in my free time. It sharpens critical thinking and planning in ways that carry over to research.</p>
+    </div>
+
+    <div class="highlight-box">
+      <h3>Travel</h3>
+      <p>Travel broadens perspective and fuels curiosity — a refreshing break from routine and a way to experience diverse cultures and landscapes. Some of the most captivating places I've visited: Leh-Ladakh, Udaipur, Spiti-Kaza, Jamala Village (H.P.), Shangarh (H.P.), Ravangla (Sikkim), Mount Abu, Kheerganga (Kasol), Dalhousie, Waichin (Malana), Pushkar, Rishikesh, Tirthan Valley (H.P.), Lansdowne, Dharamsala, and Bir-Billing.</p>
+    </div>
+  </section>
+
+</div>
+
+</main>
+
+<footer>
+  <p>&copy; 2026 Yogesh Bhardwaj. All Rights Reserved.</p>
+  <p class="kalam-quote">"Science is a beautiful gift to humanity; we should not distort it. Dream, dream, dream; dreams transform into thoughts, and thoughts result in action." — A.P.J. Abdul Kalam</p>
+</footer>
+
+<div id="chat-widget">
+  <button id="chat-toggle" aria-label="Contact Yogesh">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+  </button>
+  <div id="chat-panel">
+    <div class="chat-header">
+      <div>
+        <div class="chat-title">Get in touch</div>
+        <div class="chat-subtitle">Leave a message, I'll reply by email</div>
+      </div>
+      <button id="chat-close" aria-label="Close">&times;</button>
+    </div>
+    <form id="chat-form">
+      <input type="text" name="name" placeholder="Your name" required>
+      <input type="email" name="email" placeholder="Your email" required>
+      <textarea name="message" placeholder="What would you like to talk about?" rows="4" required></textarea>
+      <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+      <button type="submit" id="chat-submit">Send message</button>
+    </form>
+    <p id="chat-status"></p>
+  </div>
+</div>
+
+<style>
+  #chat-widget{ position:fixed; bottom:24px; right:24px; z-index:100; font-family:'Inter', sans-serif; }
+
+  #chat-toggle{
+    width:56px; height:56px; border-radius:50%;
+    background:var(--brass); color:var(--void);
+    border:none; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 8px 24px rgba(0,0,0,0.4);
+    transition:transform 0.2s ease, background 0.2s ease;
+  }
+  #chat-toggle:hover{ transform:scale(1.06); background:var(--brass-bright); }
+
+  #chat-panel{
+    position:absolute;
+    bottom:70px; right:0;
+    width:min(320px, 85vw);
+    background:#0B0B0D;
+    border:1px solid var(--line-strong);
+    border-radius:10px;
+    box-shadow:0 20px 50px rgba(0,0,0,0.5);
+    padding:20px;
+    display:none;
+    flex-direction:column;
+    gap:12px;
+  }
+  #chat-panel.open{ display:flex; }
+
+  .chat-header{ display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:4px; }
+  .chat-title{ color:var(--paper); font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:0.98rem; }
+  .chat-subtitle{ color:var(--muted); font-size:0.78rem; margin-top:2px; }
+  #chat-close{ background:none; border:none; color:var(--muted); font-size:1.4rem; line-height:1; cursor:pointer; padding:0 0 0 12px; }
+  #chat-close:hover{ color:var(--paper); }
+
+  #chat-form{ display:flex; flex-direction:column; gap:10px; }
+  #chat-form input, #chat-form textarea{
+    background:rgba(255,255,255,0.04);
+    border:1px solid var(--line-strong);
+    border-radius:6px;
+    padding:10px 12px;
+    color:var(--paper);
+    font-family:'Inter', sans-serif;
+    font-size:0.86rem;
+    resize:vertical;
+  }
+  #chat-form input::placeholder, #chat-form textarea::placeholder{ color:var(--muted); }
+  #chat-form input:focus, #chat-form textarea:focus{ outline:none; border-color:var(--brass); }
+
+  #chat-submit{
+    background:var(--brass);
+    color:var(--void);
+    border:none;
+    border-radius:6px;
+    padding:11px;
+    font-family:'Inter', sans-serif;
+    font-weight:600;
+    font-size:0.86rem;
+    cursor:pointer;
+    transition:background 0.2s ease;
+  }
+  #chat-submit:hover{ background:var(--brass-bright); }
+  #chat-submit:disabled{ opacity:0.6; cursor:default; }
+
+  #chat-status{ font-size:0.78rem; color:var(--muted); min-height:1em; }
+  #chat-status a{ color:var(--brass-bright); }
+  #chat-status.success{ color:#8FBF9F; }
+
+  @media (max-width:480px){
+    #chat-widget{ right:16px; bottom:16px; }
+    #chat-panel{ right:0; }
+  }
+</style>
+
+<script>
+(function(){
+  const toggle = document.getElementById('chat-toggle');
+  const panel = document.getElementById('chat-panel');
+  const closeBtn = document.getElementById('chat-close');
+  const form = document.getElementById('chat-form');
+  const status = document.getElementById('chat-status');
+  const submitBtn = document.getElementById('chat-submit');
+
+  toggle.addEventListener('click', () => panel.classList.toggle('open'));
+  closeBtn.addEventListener('click', () => panel.classList.remove('open'));
+
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    if (form._honey && form._honey.value) return; // honeypot, silently drop bots
+
+    const data = Object.fromEntries(new FormData(form));
+    submitBtn.disabled = true;
+    status.className = '';
+    status.textContent = 'Sending...';
+
+    try {
+      const res = await fetch('https://formsubmit.co/ajax/yogeshb00015@gmail.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          name: data.name, email: data.email, message: data.message,
+          _subject: 'New message from your portfolio site',
+        }),
+      });
+      if (!res.ok) throw new Error('Request failed: ' + res.status);
+      status.textContent = 'Message sent — thank you, I\'ll reply soon.';
+      status.className = 'success';
+      form.reset();
+    } catch (err) {
+      status.innerHTML = 'Couldn\'t send that — email me directly at <a href="mailto:yogeshb00015@gmail.com">yogeshb00015@gmail.com</a>';
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+})();
+</script>
+
+
+<script src="three.min.js"></script>
+<script>
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isSmallScreen = window.innerWidth < 700;
+
+try {
+  const wrap = document.getElementById('hero-canvas-wrap');
+  const heroEl = document.querySelector('header.hero');
+
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(0x050507, 0.05);
+
+  const camera = new THREE.PerspectiveCamera(50, window.innerWidth / heroEl.offsetHeight, 0.1, 100);
+  camera.position.set(0, 0, 8);
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setSize(window.innerWidth, heroEl.offsetHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  wrap.appendChild(renderer.domElement);
+
+  // ---------- Lighting ----------
+  scene.add(new THREE.AmbientLight(0x38304f, 1.6));
+  const keyLight = new THREE.DirectionalLight(0xfff3d6, 2.0);
+  keyLight.position.set(6, 5, 6);
+  scene.add(keyLight);
+  const rimLight = new THREE.PointLight(0xB08D57, 2.4, 20);
+  rimLight.position.set(-5, -2, 3);
+  scene.add(rimLight);
+
+  // ---------- Starfield: FIXED -- soft round sprite + capped size, kept well behind camera ----------
+  function makeDotTexture() {
+    const size = 64;
+    const canvas = document.createElement('canvas');
+    canvas.width = canvas.height = size;
+    const ctx = canvas.getContext('2d');
+    const grad = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+    grad.addColorStop(0, 'rgba(255,255,255,1)');
+    grad.addColorStop(0.5, 'rgba(255,255,255,0.5)');
+    grad.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, size, size);
+    return new THREE.CanvasTexture(canvas);
+  }
+  const dotTex = makeDotTexture();
+
+  function buildStarfield(count, spread, minZ, color, size, opacity) {
+    const positions = new Float32Array(count * 3);
+    for (let i = 0; i < count; i++) {
+      positions[i * 3] = (Math.random() - 0.5) * spread;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * spread * 0.7;
+      // keep every star well behind the camera/subjects so perspective can never blow one up to a giant sprite
+      positions[i * 3 + 2] = -minZ - Math.random() * spread * 0.5;
+    }
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    const mat = new THREE.PointsMaterial({
+      map: dotTex, color, size, sizeAttenuation: true,
+      transparent: true, opacity, depthWrite: false,
+    });
+    return new THREE.Points(geo, mat);
+  }
+  const starCount = isSmallScreen ? 500 : 900;
+  const stars = buildStarfield(starCount, 60, 12, 0xffffff, 0.35, 0.75);
+  scene.add(stars);
+  const goldStars = buildStarfield(Math.floor(starCount * 0.2), 50, 12, 0xD4B384, 0.5, 0.7);
+  scene.add(goldStars);
+
+  // ---------- Nebula (soft sprite clouds, well back in the scene) ----------
+  function makeNebulaTexture() {
+    const size = 128;
+    const canvas = document.createElement('canvas');
+    canvas.width = canvas.height = size;
+    const ctx = canvas.getContext('2d');
+    const grad = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+    grad.addColorStop(0, 'rgba(255,255,255,0.9)');
+    grad.addColorStop(0.4, 'rgba(255,255,255,0.35)');
+    grad.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, size, size);
+    return new THREE.CanvasTexture(canvas);
+  }
+  const nebulaTex = makeNebulaTexture();
+  const nebulaGroup = new THREE.Group();
+  const nebulaColors = [0x7c5cbf, 0x4fd1c5, 0xB08D57];
+  for (let i = 0; i < (isSmallScreen ? 3 : 5); i++) {
+    const mat = new THREE.SpriteMaterial({ map: nebulaTex, color: nebulaColors[i % nebulaColors.length], transparent: true, opacity: 0.22, depthWrite: false });
+    const sprite = new THREE.Sprite(mat);
+    const s = 6 + Math.random() * 5;
+    sprite.scale.set(s, s, 1);
+    sprite.position.set((Math.random() - 0.5) * 12, (Math.random() - 0.5) * 6, -8 - Math.random() * 6);
+    nebulaGroup.add(sprite);
+  }
+  scene.add(nebulaGroup);
+
+  // ---------- Astronaut ----------
+  function buildAstronaut() {
+    const group = new THREE.Group();
+    const suitMat = new THREE.MeshStandardMaterial({ color: 0xeceaf5, roughness: 0.6, metalness: 0.1 });
+    const darkMat = new THREE.MeshStandardMaterial({ color: 0x22223a, roughness: 0.5, metalness: 0.3 });
+    const visorMat = new THREE.MeshStandardMaterial({ color: 0xD4B384, roughness: 0.15, metalness: 0.6, emissive: 0x5a4520, emissiveIntensity: 0.4 });
+    const ionMat = new THREE.MeshStandardMaterial({ color: 0x4fd1c5, roughness: 0.4, metalness: 0.4, emissive: 0x1a5c56, emissiveIntensity: 0.6 });
+
+    const torso = new THREE.Mesh(new THREE.SphereGeometry(0.55, 20, 20), suitMat);
+    torso.scale.set(1, 1.3, 0.85);
+    group.add(torso);
+    const helmet = new THREE.Mesh(new THREE.SphereGeometry(0.42, 24, 24), visorMat);
+    helmet.position.set(0, 0.95, 0.05);
+    group.add(helmet);
+    const backpack = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.7, 0.25), darkMat);
+    backpack.position.set(0, 0.15, -0.5);
+    group.add(backpack);
+
+    function buildLimb(x, y, upperRotZ, lowerRotZ, isArm) {
+      const limb = new THREE.Group();
+      const upperLen = isArm ? 0.5 : 0.55;
+      const lowerLen = isArm ? 0.45 : 0.5;
+      const radius = isArm ? 0.14 : 0.17;
+      const upperPivot = new THREE.Group();
+      const upper = new THREE.Mesh(new THREE.CylinderGeometry(radius, radius * 0.9, upperLen, 12), suitMat);
+      upper.position.y = -upperLen / 2;
+      upperPivot.add(upper);
+      upperPivot.rotation.z = upperRotZ;
+      limb.add(upperPivot);
+      const lowerPivot = new THREE.Group();
+      const lower = new THREE.Mesh(new THREE.CylinderGeometry(radius * 0.85, radius * 0.7, lowerLen, 12), suitMat);
+      lower.position.y = -lowerLen / 2;
+      lowerPivot.add(lower);
+      lowerPivot.position.y = -upperLen;
+      lowerPivot.rotation.z = lowerRotZ;
+      upperPivot.add(lowerPivot);
+      limb.position.set(x, y, 0);
+      return limb;
+    }
+    group.add(buildLimb(-0.62, 0.35, 0.5, -0.3, true));
+    group.add(buildLimb(0.62, 0.35, -0.5, 0.3, true));
+    group.add(buildLimb(-0.25, -0.55, 0.15, -0.2, false));
+    group.add(buildLimb(0.25, -0.55, -0.15, 0.2, false));
+    const panel = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.16, 0.05), ionMat);
+    panel.position.set(0, 0.55, 0.5);
+    group.add(panel);
+    group.scale.setScalar(1.3);
+    return group;
+  }
+  const astronaut = buildAstronaut();
+  astronaut.position.set(-2.3, 0.3, -1);
+  scene.add(astronaut);
+
+  // ---------- Neural / AI sphere ----------
+  function buildNeuralSphere(radius) {
+    const group = new THREE.Group();
+    const geo = new THREE.IcosahedronGeometry(radius, 1);
+    const positions = geo.attributes.position;
+    const seen = new Map();
+    const unique = [];
+    for (let i = 0; i < positions.count; i++) {
+      const x = +positions.getX(i).toFixed(4), y = +positions.getY(i).toFixed(4), z = +positions.getZ(i).toFixed(4);
+      const key = x + ',' + y + ',' + z;
+      if (!seen.has(key)) { seen.set(key, true); unique.push([x, y, z]); }
+    }
+    const nodeMat = new THREE.MeshStandardMaterial({ color: 0x4fd1c5, emissive: 0x2a8f86, emissiveIntensity: 0.9 });
+    const inst = new THREE.InstancedMesh(new THREE.SphereGeometry(radius * 0.045, 8, 8), nodeMat, unique.length);
+    const dummy = new THREE.Object3D();
+    unique.forEach(([x, y, z], i) => { dummy.position.set(x, y, z); dummy.updateMatrix(); inst.setMatrixAt(i, dummy.matrix); });
+    group.add(inst);
+    const edgesGeo = new THREE.EdgesGeometry(geo);
+    group.add(new THREE.LineSegments(edgesGeo, new THREE.LineBasicMaterial({ color: 0x4fd1c5, transparent: true, opacity: 0.4 })));
+    const core = new THREE.Mesh(new THREE.SphereGeometry(radius * 0.24, 20, 20), new THREE.MeshStandardMaterial({ color: 0xD4B384, emissive: 0xD4B384, emissiveIntensity: 1.3, transparent: true, opacity: 0.55 }));
+    group.add(core);
+    return group;
+  }
+  const neuralSphere = buildNeuralSphere(0.85);
+  neuralSphere.position.set(2.1, 0.5, -2.5);
+  scene.add(neuralSphere);
+
+  // ---------- Black hole ----------
+  function buildBlackHole(radius) {
+    const group = new THREE.Group();
+    const core = new THREE.Mesh(new THREE.SphereGeometry(radius, 24, 24), new THREE.MeshBasicMaterial({ color: 0x000000 }));
+    group.add(core);
+    const diskGeo = new THREE.RingGeometry(radius * 1.3, radius * 3.0, 64, 8);
+    const posAttr = diskGeo.attributes.position;
+    const colors = new Float32Array(posAttr.count * 3);
+    const inner = new THREE.Color(0xfff2c2);
+    const outer = new THREE.Color(0xB08D57);
+    for (let i = 0; i < posAttr.count; i++) {
+      const x = posAttr.getX(i), y = posAttr.getY(i);
+      const dist = Math.sqrt(x * x + y * y);
+      const tt = Math.max(0, Math.min(1, (dist - radius * 1.3) / (radius * 1.7)));
+      const c = inner.clone().lerp(outer, tt);
+      colors[i * 3] = c.r; colors[i * 3 + 1] = c.g; colors[i * 3 + 2] = c.b;
+    }
+    diskGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+    const disk = new THREE.Mesh(diskGeo, new THREE.MeshBasicMaterial({ vertexColors: true, side: THREE.DoubleSide, transparent: true, opacity: 0.8 }));
+    disk.rotation.x = Math.PI / 2.3;
+    disk.name = 'accretionDisk';
+    group.add(disk);
+    const glow = new THREE.Mesh(new THREE.SphereGeometry(radius * 2.0, 16, 16), new THREE.MeshBasicMaterial({ color: 0xB08D57, transparent: true, opacity: 0.12 }));
+    group.add(glow);
+    return group;
+  }
+  const blackHole = buildBlackHole(0.55);
+  blackHole.position.set(0.2, -1.3, -4.5);
+  scene.add(blackHole);
+
+  // ---------- Resize (recompute against hero height, not full window) ----------
+  function onResize() {
+    const h = heroEl.offsetHeight;
+    camera.aspect = window.innerWidth / h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, h);
+  }
+  window.addEventListener('resize', onResize);
+
+  // ---------- Mouse parallax (scoped to hero only) ----------
+  let mouseX = 0, mouseY = 0;
+  heroEl.addEventListener('mousemove', (e) => {
+    const rect = heroEl.getBoundingClientRect();
+    mouseX = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+    mouseY = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+  });
+
+  // ---------- Animation loop ----------
+  const clock = new THREE.Clock();
+  function animate() {
+    requestAnimationFrame(animate);
+    const t = clock.getElapsedTime();
+
+    if (!prefersReducedMotion) {
+      astronaut.rotation.y = t * 0.22;
+      astronaut.rotation.x = Math.sin(t * 0.4) * 0.07;
+      astronaut.position.y = 0.3 + Math.sin(t * 0.55) * 0.15;
+
+      neuralSphere.rotation.y = t * 0.16;
+      neuralSphere.rotation.x = t * 0.06;
+      neuralSphere.scale.setScalar(1 + Math.sin(t * 1.3) * 0.03);
+
+      const disk = blackHole.getObjectByName('accretionDisk');
+      if (disk) disk.rotation.z = t * 0.25;
+      blackHole.rotation.y = t * 0.04;
+
+      nebulaGroup.rotation.y = t * 0.008;
+      stars.rotation.y = t * 0.004;
+      goldStars.rotation.y = -t * 0.003;
+
+      camera.position.x = mouseX * 0.4;
+      camera.position.y = -mouseY * 0.25;
+      camera.lookAt(0, 0, -2);
+    }
+
+    renderer.render(scene, camera);
+  }
+  animate();
+} catch (err) {
+  console.warn('Hero 3D scene unavailable, continuing without it:', err);
+  const wrap = document.getElementById('hero-canvas-wrap');
+  if (wrap) wrap.style.background = 'radial-gradient(ellipse at 30% 30%, rgba(176,141,87,0.10), transparent 60%), #050507';
+}
+</script>
+
+
+<script>
+  const sections = document.querySelectorAll('section');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    sections.forEach(s => io.observe(s));
+  } else {
+    sections.forEach(s => s.classList.add('in-view'));
+  }
+</script>
+
+</body>
+</html>
