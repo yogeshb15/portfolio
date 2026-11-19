@@ -86,9 +86,35 @@
     for(const [i,b] of levelButtons.entries())b.setAttribute("aria-pressed",String(i===["galaxy","system","planet"].indexOf(next)));
     if(next!=="system")for(const b of pins.values())b.hidden=true;
   }
-  function sample(){frame=0;const m=measurement();show(Math.max(0,Math.min(2,2*(scrollY-m.top)/m.range)));}
+  // Focusing a control in a sticky panel can scroll the document. Keep an explicitly
+  // chosen planet in view until the visitor starts navigating the page again.
+  let chosenDepth=null, touchStart=null;
+  const resumeScroll=()=>{chosenDepth=null;};
+  window.addEventListener("wheel",e=>{if(e.deltaY)resumeScroll();},{passive:true});
+  window.addEventListener("touchstart",e=>{
+    const touch=e.touches[0];
+    touchStart=touch?[touch.clientX,touch.clientY]:null;
+  },{passive:true});
+  window.addEventListener("touchmove",e=>{
+    const touch=e.touches[0];
+    if(touchStart&&touch&&Math.abs(touch.clientY-touchStart[1])>Math.max(5,Math.abs(touch.clientX-touchStart[0])))resumeScroll();
+  },{passive:true});
+  window.addEventListener("keydown",e=>{
+    if(["ArrowDown","ArrowUp","PageDown","PageUp","Home","End"].includes(e.key)||
+      (e.key===" "&&!e.target.closest("button,input,textarea,select,dialog")))resumeScroll();
+  });
+  window.addEventListener("pointerdown",e=>{
+    if(e.clientX>=document.documentElement.clientWidth)resumeScroll();
+  },{passive:true});
+  window.addEventListener("hashchange",resumeScroll);
+  function sample(){
+    frame=0;
+    const m=measurement();
+    show(chosenDepth??Math.max(0,Math.min(2,2*(scrollY-m.top)/m.range)));
+  }
   function schedule(){if(!frame)frame=requestAnimationFrame(sample);}
   function go(depth,immediate=false){
+    chosenDepth=depth;
     const m=measurement();
     window.scrollTo({top:Math.max(0,m.top+m.range*depth/2),behavior:immediate||!motion?"instant":"smooth"});
     schedule();
@@ -118,7 +144,7 @@
   function initial(){
     const u=new URL(location.href),id=u.searchParams.get("planet");
     if(!u.hash&&Object.hasOwn(names,id))visit(id,true,false);
-    else sample();
+    else {resumeScroll();sample();}
   }
   initial();window.addEventListener("popstate",initial);
 })();
