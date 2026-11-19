@@ -8,7 +8,7 @@
   dialog.id="instrument-viewer";
   dialog.setAttribute("aria-labelledby","scene-title");
   dialog.innerHTML=`
-    <header><h2 id="scene-title">The observatory</h2><button class="close-dialog" type="button" aria-label="Close observatory">×</button></header>
+    <header><h2 id="scene-title">The observatory</h2><div class="exhibit-actions"><button class="ask-exhibit" type="button" aria-haspopup="dialog" aria-controls="portfolio-assistant">Ask the guide</button><button class="close-dialog" type="button" aria-label="Close observatory">×</button></div></header>
     <nav class="scene-trail" aria-label="Exhibit path"></nav>
     <div class="explorer-layout">
       <div class="scene-viewport">
@@ -60,6 +60,7 @@
     const a=el("a","exhibit-source",label);a.href=url;a.target="_blank";a.rel="noopener noreferrer";return a;
   }
   function script(url) {
+    if(url==="three.min.js" && window.THREE)return Promise.resolve();
     if(!downloads.has(url)) downloads.set(url,new Promise((resolve,reject)=>{
       const tag=document.createElement("script");tag.src=url;
       tag.onload=resolve;
@@ -225,6 +226,9 @@
     });
   }
   back.addEventListener("click",()=>{if(history.length)visit(history.pop(),false);});
+  find(".ask-exhibit").addEventListener("click",event=>{
+    event.currentTarget.dispatchEvent(new CustomEvent("portfolio-exhibit-question",{bubbles:true,detail:{title:stops[current].title}}));
+  });
   find(".close-dialog").addEventListener("click",()=>dialog.close());
   dialog.addEventListener("close",()=>{
     opening++;closeNote();opener?.focus({preventScroll:true});
