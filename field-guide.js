@@ -7,11 +7,11 @@ window.observatoryGuide = (() => {
     moon: ["NASA · Lunar craters", "https://science.nasa.gov/moon/lunar-craters/"],
     tycho: ["NASA LRO · Tycho’s central peak", "https://science.nasa.gov/resource/tycho-craters-central-peak-on-the-moon/"],
     eclipse: ["NASA · A solar eclipse guide", "https://science.nasa.gov/feature/solar-eclipse-guide/"],
-    guitar: ["Yamaha · How a guitar makes sound", "https://www.yamaha.com/en/musical_instrument_guide/acoustic_guitar/mechanism/"],
+    guitar: ["Yamaha · How a guitar makes sound", "https://europe.yamaha.com/en/musical-instruments/guitars-basses-amps/explore/musical-instrument-guide/acoustic-guitar/structure001.html"],
     strings: ["Yamaha · Strings and pitch", "https://europe.yamaha.com/en/musical-instruments/guitars-basses-amps/explore/musical-instrument-guide/acoustic-guitar/structure003.html"],
     scope: ["NASA · Telescopes 101", "https://science.nasa.gov/universe/telescopes-101/"],
     optics: ["OpenStax · Telescope optics", "https://openstax.org/books/college-physics-2e/pages/26-5-telescopes"],
-    field: ["USGS · Introduction to geomagnetism", "https://www.usgs.gov/programs/geomagnetism/introduction-geomagnetism"],
+    bearings: ["Ordnance Survey · Compass bearings", "https://www.ordnancesurvey.co.uk/mapzone/map-skills/compass-bearings/page-two"],
     north: ["NOAA · Magnetic declination", "https://www.ncei.noaa.gov/node/2181"]
   };
   const stops = {
@@ -104,7 +104,7 @@ window.observatoryGuide = (() => {
     rose: {
       title:"Compass rose", heading:"Read a bearing", parent:"compass",
       text:"The fixed rose gives a direction its angle. Start at north and read clockwise. East is 90°, south 180° and west 270°. The pivot at the centre lets the needle turn above the markings.",
-      source:"field", links:["declination"]
+      source:"bearings", links:["declination"]
     },
     declination: {
       title:"Magnetic north", heading:"Compare two norths", parent:"rose",
