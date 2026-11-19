@@ -183,3 +183,6 @@
 .exhibit-actions {display:flex;align-items:center;gap:.65rem;}
 .ask-exhibit {border:1px solid #847958;background:#1e2d26;color:#f0d397;border-radius:1.5rem;padding:.4rem .75rem;font:.85rem var(--body);}
 @media(max-width:420px){.exhibit-actions{gap:.35rem;}.ask-exhibit{font-size:.75rem;padding:.36rem .55rem;}}
+
+/* Clipping the backdrop must never make the entire museum scroll when a control receives focus. */
+.museum {overflow:clip;}

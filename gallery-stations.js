@@ -3,10 +3,10 @@ window.PortfolioStations = [
   {
     "id": "about",
     "name": "Portrait",
-    "label": "AI evaluation & observational cosmology",
+    "label": "AI Research Engineer at Wipro",
     "heading": "Dr. Yogesh",
     "em": "Bhardwaj",
-    "copy": "At Wipro, I trace where AI reasoning breaks down. In cosmology, I use supernova distances to test how the universe expands.",
+    "copy": "I build benchmarks that trace a model’s first wrong step in mathematics or code. In cosmology, I use supernova distances to study how the universe expands.",
     "action": "Explore my work",
     "sculpture": "Tabletop orrery",
     "detail": "A brass orrery stands beside Yogesh’s mountain portrait. The small planets sit on separate arms around a central Sun. Turn the camera sideways to see how the arms overlap."
