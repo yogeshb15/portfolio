@@ -154,9 +154,11 @@
     opener = trigger;
     const room=document.querySelector(".museum");
     const station=window.PortfolioStations?.find(s=>s.id===room?.dataset.station);
-    currentSubject=exhibitTitle || (room?.dataset.mode==="map" ? "Gallery tour" : station?.sculpture);
-    localGuide.hidden=!station || Boolean(exhibitTitle);
-    localGuide.textContent=room?.dataset.mode==="map"?"About the gallery map":"About this sculpture";
+    const flight=document.querySelector(".flight-track");
+    const inFlight=flight && flight.getBoundingClientRect().top<innerHeight && flight.getBoundingClientRect().bottom>100;
+    currentSubject=exhibitTitle || (inFlight?flight.dataset.subject:null) || (room?.dataset.mode==="map" ? "Gallery tour" : station?.sculpture);
+    localGuide.hidden=(!station&&!inFlight) || Boolean(exhibitTitle);
+    localGuide.textContent=inFlight?"About this view":room?.dataset.mode==="map"?"About the gallery map":"About this sculpture";
     dialog.showModal();
     window.PortfolioKnowledge.load().catch(() => {});
     if (exhibitTitle) {

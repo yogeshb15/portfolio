@@ -1,0 +1,177 @@
+/* The flight uses a sticky camera inside a normal, vertically scrolling document. */
+.cosmic-site {
+  --paper:#090b14;--tint:#0e101d;--ink:#f3eff5;--muted:#b6b6ca;--line:#303242;
+  --accent:#f3ba94;--forest:#262035;--sky:#b3b9f8;--header:70px;
+  background:#090b14;color:var(--ink);font-family:var(--body);
+}
+html:has(.cosmic-site) {scroll-behavior:auto;scroll-padding-top:82px;}
+.cosmic-site a:focus-visible,.cosmic-site button:focus-visible {outline:2px solid #f9ba91;outline-offset:4px;}
+.cosmic-site .star-wrap {width:min(90%,1340px);margin-inline:auto;}
+.star-header {position:sticky;top:0;z-index:12;background:#090b14f5;border-bottom:1px solid #ffffff19;backdrop-filter:blur(14px);}
+.star-top,.header-tools,.star-top nav,.star-brand,.guide-trigger {display:flex;align-items:center;}
+.star-top {height:var(--header);justify-content:space-between;gap:1.4rem;}
+.star-brand {gap:.75rem;color:#f5f1fd;text-decoration:none;white-space:nowrap;font-weight:650;letter-spacing:-.045em;font-size:1.1rem;}
+.orbit-sign {display:inline-block;width:30px;height:30px;position:relative;transform:rotate(-24deg);}
+.orbit-sign::before,.orbit-sign::after {content:"";position:absolute;left:0;right:0;top:8px;height:12px;border:1.4px solid #f3bd9c;border-radius:50%;}
+.orbit-sign::after {inset:2px 6px 2px 6px;height:auto;background:radial-gradient(circle at 32% 30%,#ffe3c8 1%,#c296a6 48%,#483f63 79%);border:0;z-index:-1;}
+.star-top nav,.star-footer nav {gap:clamp(.85rem,2.3vw,2.4rem);}
+.star-top nav a,.star-footer nav a,.plain-link,.subtle-button,.note-actions a,.fragment-nav a {text-decoration:none;color:#d2d2e2;font-size:.92rem;}
+.star-top nav a:hover,.star-top nav a[aria-current],.star-footer a:hover,.cosmic-site a.plain-link:hover {color:#ffccab;}
+.header-tools {gap:.55rem;}
+.guide-trigger,.menu-trigger,.world-tabs button {background:#181823;border:1px solid #666073;color:#f7edf1;border-radius:2rem;font:550 .86rem var(--body);padding:.56rem .95rem;cursor:pointer;}
+.guide-trigger {gap:.5rem;}.guide-star {font:1.4rem/.6 Georgia;color:#f3ba94;}
+.cosmic-site .assistant-launch {display:none;}
+.star-footer {background:#080911;border-top:1px solid var(--line);color:var(--muted);}
+.star-footer>.star-wrap {display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:2.2rem 0;}
+.star-footer nav {display:flex;flex-wrap:wrap;}.star-footer>div>span {font-size:.87rem;}
+.flight-track {--window:clamp(590px,calc(100svh - var(--header)),880px);position:relative;background:#070912;}
+.has-flight .flight-track {height:calc(var(--window) + clamp(460px,81vh,820px));}
+.flight-window {height:var(--window);isolation:isolate;position:sticky;top:var(--header);overflow:clip;background:#050611;}
+.galaxy-plate,.flight-stage,.flight-pins,.flight-fade {position:absolute;inset:0;}
+.galaxy-plate {z-index:-4;background: #03040a url("assets/spiral-atlas.webp") 65% 49%/cover no-repeat;transform-origin:71% 49%;transform:scale(var(--magnify,1));opacity:var(--galaxy-opacity,1);}
+.flight-stage {z-index:-3;cursor:grab;opacity:var(--stage-opacity,.29);}
+.flight-stage:active {cursor:grabbing;}
+.flight-fade {z-index:-2;pointer-events:none;background:linear-gradient(90deg,#050610d9 0%,#0708139c 22%,#080a1429 46%,transparent 64%),linear-gradient(0deg,#090b14 0%,#090b1455 13%,transparent 26%);}
+.flight-captions {position:absolute;top:46%;transform:translateY(-50%);left:max(5%,calc((100% - 1340px)/2));width:min(42%,585px);pointer-events:none;}
+.flight-captions a,.flight-captions button {pointer-events:auto;}
+.kicker,.meta-type {font:500 .79rem/1.5 var(--mono);letter-spacing:.10em;text-transform:uppercase;}
+.kicker {color:#f4bc9f;display:flex;align-items:center;gap:.8rem;}
+.kicker i {display:inline-block;width:25px;height:1px;background:#ecaa8a;flex:none;}
+.flight-captions h1,.flight-readout h2,.inner-intro h1,.portrait-chapter h2 {font:400 clamp(4.1rem,7.7vw,8.2rem)/.91 var(--display);letter-spacing:-.042em;margin:1.35rem 0 1.5rem;color:#f6eff4;}
+.flight-captions h1 span,.flight-captions h1 em {display:block;}
+.flight-captions h1 em,.inner-intro em,.portrait-chapter em {font-weight:400;color:#efc3ad;}
+.flight-summary,.inner-intro>p:not(.kicker),.portrait-chapter>div>p:not(.kicker) {font:400 clamp(1rem,1.22vw,1.2rem)/1.65 var(--body);color:#d1ccdb;max-width:40ch;}
+.flight-actions,.readout-actions,.note-actions {display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;margin-top:1.65rem;}
+.astro-primary {display:inline-flex;align-items:center;padding:.83rem 1.32rem;border-radius:2rem;background:#efc0a3;color:#211b22;text-decoration:none;font-weight:650;box-shadow:0 2px 17px #17102033;}
+.astro-primary:hover {background:#ffdac4;color:#201a20;}
+.plain-link {width:fit-content;border-bottom:1px solid #c9b1bdab;padding:.13rem 0;font-weight:550;}
+.flight-actions .plain-link,.readout-actions .plain-link,.chapter-head .plain-link {color:#ebe5f1;}
+.galaxy-tag {position:absolute;top:58%;left:77%;display:flex;align-items:center;gap:.7rem;font:500 .75rem var(--mono);letter-spacing:.09em;text-transform:uppercase;color:#f4edf8;text-decoration:none;text-shadow:0 1px 8px #000;}
+.galaxy-tag i {width:1.2rem;height:1.2rem;border:1px solid #fff9;border-radius:50%;display:grid;place-items:center;}
+.galaxy-tag i::after {content:"";width:.25rem;height:.25rem;background:#f6d7b4;border-radius:100%;box-shadow:0 0 .5rem #e2b692;}
+.flight-panel {position:absolute;left:5%;right:5%;bottom:1.4rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid #e1daea32;padding-top:1.1rem;gap:1rem;}
+.flight-panel button,.scroll-cue {border:0;background:transparent;color:#c5c2d4;text-decoration:none;font:500 .8rem var(--body);padding:.4rem .3rem;}
+.flight-motion,.scroll-cue,.flight-scale {display:flex;align-items:center;gap:.55rem;}
+.scroll-line {width:13px;height:20px;border:1px solid #857f91;border-radius:1rem;position:relative;}
+.scroll-line::after {content:"";position:absolute;left:5px;top:4px;height:5px;width:1px;background:#f3c4a6;}
+.flight-scale {gap:.45rem;}.flight-scale i {width:clamp(12px,2vw,32px);height:1px;background:#696476;}
+.flight-scale button[aria-pressed="true"] {color:#fac8a4;}
+.flight-motion i {width:8px;height:10px;border-inline:2px solid #d8c4c2;}
+.flight-motion[aria-pressed="true"] i {border:0;width:0;height:0;border-left:7px solid #d8c4c2;border-top:5px solid transparent;border-bottom:5px solid transparent;}
+.flight-pins {pointer-events:none;}
+.world-pin {position:absolute;transform:translate(-50%,-.1rem);border:1px solid #87829a90;border-radius:2rem;background:#0c1023de;color:#edeaf4;font:500 .78rem var(--body);padding:.25rem .55rem;pointer-events:auto;}
+.world-tabs {display:flex;gap:.39rem;flex-wrap:wrap;margin-top:1.2rem;}
+.world-tabs button {background:#0e1220b3;font-size:.85rem;padding:.45rem .83rem;border-color:#6d687b;}
+.world-tabs button[aria-pressed=true] {color:#211a1c;background:#f2c3a2;border-color:#f2c3a2;}
+.subtle-button {background:none;border:0;color:#c6c2d2;padding:0;}
+.flight-window[data-phase="system"] .galaxy-tag,.flight-window[data-phase="planet"] .galaxy-tag {display:none;}
+.flight-readout h2 {font-size:clamp(3.9rem,6.5vw,6.7rem);margin:1rem 0;}
+.chapter {padding-block:clamp(3.3rem,6.8vw,7.5rem);}
+.chapter-head {display:flex;align-items:flex-end;justify-content:space-between;gap:1.4rem;margin-bottom:2rem;}
+.chapter-head h2,.note-list h3,.source-note h2 {font:400 clamp(2.9rem,4.7vw,5rem)/1.02 var(--display);letter-spacing:-.036em;color:#f0edf5;}
+.chapter-head h2 {margin-top:.7rem;}
+.planet-cards {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem;}
+.planet-card {position:relative;isolation:isolate;overflow:hidden;min-height:260px;aspect-ratio:.96;background:#0b0e19;color:white;border:1px solid #302e3e;border-radius:12px;text-decoration:none;display:flex;align-items:flex-end;padding:1.25rem;}
+.planet-card img {position:absolute;inset:0 0 12%;height:88%;width:100%;object-fit:cover;z-index:-2;transition:transform .45s;}
+.planet-card::after {content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,#0a0d18 7%,#0b0d1855 32%,transparent 63%);}
+.planet-card:hover img {transform:scale(1.07);}.planet-card:hover {border-color:#958293;}
+.meta-type {color:#c9b8cb;font-size:.72rem;}
+.planet-card h3 {font-size:2.3rem;color:#f5edf2;line-height:1.05;margin-top:.17rem;}
+.plus-icon {position:absolute;right:1.1rem;bottom:1.2rem;border:1px solid #80788a;border-radius:50%;width:1.65rem;height:1.65rem;display:grid;place-items:center;color:#eac3ad;font-size:1rem;line-height:1;}
+#research,.portrait-chapter,.source-note {border-top:1px solid var(--line);}
+.work-rows>a {display:grid;grid-template-columns:1fr 2fr .9fr;gap:1.5rem;align-items:center;text-decoration:none;color:var(--ink);padding:1.7rem 0;border-top:1px solid #343140;}
+.work-rows>a:last-child {border-bottom:1px solid #343140;}
+.work-rows>a:hover h3 {color:#f1ba9a;}
+.work-type,.work-result {font:500 .83rem/1.5 var(--mono);color:#c8bfd0;}
+.work-result {text-align:right;color:#e1bba1;}
+.work-rows h3 {font-size:clamp(1.7rem,2.3vw,2.5rem);line-height:1.15;}
+.work-rows p,.note-list p:not(.meta-type),.source-note p {margin-top:.4rem;color:var(--muted);}
+.portrait-chapter {display:grid;grid-template-columns:.82fr 1fr;align-items:center;gap:clamp(2rem,7vw,9rem);}
+.portrait-chapter figure {margin:0;overflow:hidden;max-height:470px;border-radius:12px;}
+.portrait-chapter img {width:100%;height:100%;aspect-ratio:1.1;object-fit:cover;object-position:50% 61%;}
+.portrait-chapter>div>a {display:inline-block;margin-top:1.2rem;}
+.cosmic-site .orbit-studio {margin:1rem auto 5rem;border-color:#444051;}
+.cosmic-site .contact-section,.cosmic-site .tinted {background:#10121f;}
+.cosmic-site .contact-section {border-color:var(--line);}
+.cosmic-site .contact-extra,.cosmic-site .current p {color:var(--muted);}
+.cosmic-site .contact-section input,.cosmic-site .contact-section textarea,.cosmic-site .assistant-dialog input,.cosmic-site .assistant-dialog textarea,.cosmic-site .directory input,.cosmic-site .directory select {background:#101421;border-color:#484657;color:#f2edf4;}
+.cosmic-site .contact-section button.light,.cosmic-site .primary,.cosmic-site .ask-form button {background:#eac1a7;color:#261f27;}
+.cosmic-site .current,.cosmic-site .project-card,.cosmic-site .skill-grid>div {background:#171925;border-color:#393743;}
+.cosmic-site dialog {background:#111421;color:var(--ink);border-color:#555164;}
+.cosmic-site .assistant-head,.cosmic-site .scene-dialog header,.cosmic-site .field-notes,.cosmic-site .assistant-scroll {background:#151623;}
+.cosmic-site .message {background:#242535;}.cosmic-site .message.visitor {background:#373143;}
+.message.reply {white-space:pre-line;overflow-wrap:anywhere;}.reply-sources {white-space:normal;margin-top:.5rem;}.reply-sources a {display:block;margin-top:.35rem;}
+.exhibit-actions {display:flex;gap:.6rem;align-items:center;}
+.ask-exhibit,.cosmic-site .contact-assist {background:#211f30;color:#eec4aa;border:1px solid #675d6e;border-radius:2rem;padding:.4rem .75rem;}
+.inner-intro,.cosmic-site .directory {padding-block:clamp(3rem,6vw,6rem);}
+.inner-intro {border-bottom:1px solid var(--line);}
+.inner-intro h1 {font-size:clamp(3.5rem,6.6vw,7rem);max-width:19ch;}
+.inner-intro>p:not(.kicker) {max-width:65ch;}
+.fragment-nav {display:flex;flex-wrap:wrap;gap:1.3rem;margin-top:1.45rem;}
+.fragment-nav a {border-bottom:1px solid #6b6177;color:#efbf9f;}
+.cosmic-site .profile-page .hero {background:transparent;}
+.cosmic-site .profile-page .hero::before {display:none;}
+.cosmic-site .directory .dir-head {border-color:var(--accent);}
+.cosmic-site .directory #other-training {margin-top:2rem;}
+.planet-notes .note-list {display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;}
+.note-list article {background:#111420;border:1px solid #353342;border-radius:12px;overflow:hidden;}
+.note-list article img {width:100%;aspect-ratio:2.35;object-fit:cover;}
+.note-list article>div {padding:1.4rem 1.6rem 1.6rem;}.note-list h3 {font-size:2.6rem;margin:.35rem 0 .5rem;}
+.note-actions {margin-top:1.1rem;}.source-note {padding:3rem 0 5rem;}.source-note h2 {font-size:2.8rem;}.source-note p {max-width:82ch;}.source-note>.plain-link {display:inline-block;margin-top:1.1rem;}
+@media(max-width:850px){
+ .star-top nav {gap:.9rem;}.star-top {gap:.7rem;}.planet-cards{gap:.65rem;}.planet-card{min-height:200px;padding:.8rem;}.plus-icon{right:.65rem;bottom:.9rem;}
+ .flight-captions {width:45%;}.galaxy-tag {left:75%;}
+}
+@media(max-width:719px){
+ .cosmic-site {--header:58px;}.cosmic-site .star-wrap {width:90%;}
+ .star-top nav {display:none;}.star-top nav[data-open] {display:flex;position:absolute;flex-direction:column;align-items:stretch;gap:0;top:100%;left:0;right:0;background:#10121f;border-bottom:1px solid #383645;padding:.5rem 5%;}
+ .star-top nav a {padding:.6rem 0;}.star-brand {font-size:.97rem;gap:.4rem;}.orbit-sign {transform:rotate(-24deg) scale(.85);width:27px;}
+ .guide-trigger,.menu-trigger {font-size:.77rem;padding:.45rem .65rem;}.guide-trigger .guide-star{font-size:1rem;}
+ .flight-track {--window:clamp(630px,calc(100svh - var(--header)),850px);}
+ .has-flight .flight-track{height:calc(var(--window) + 540px);}
+ .flight-window {top:var(--header);}
+ .galaxy-plate,.flight-stage,.flight-pins {inset:0 0 40%;}.galaxy-plate {background-position:73% 49%;transform-origin:59% 49%;}
+ .flight-fade {background:linear-gradient(0deg,#080b14 3%,#080b14 37%,#080b14db 43%,transparent 66%);}
+ .flight-captions {width:90%;left:5%;top:auto;bottom:5.5rem;transform:none;}
+ .flight-captions h1,.flight-readout h2 {font-size:clamp(3.65rem,11.3vw,5.35rem);margin:.58rem 0 .78rem;line-height:.93;}
+ .flight-captions h1 span,.flight-captions h1 em {display:inline;}.flight-captions h1 em::before {content:" ";}
+ .flight-summary {font-size:.99rem;line-height:1.47;max-width:49ch;}.kicker {font-size:.72rem;gap:.55rem;}
+ .flight-actions,.readout-actions {margin-top:.9rem;gap:1rem;}.astro-primary {font-size:.88rem;padding:.68rem 1rem;}
+ .galaxy-tag {top:23%;left:auto;right:4%;font-size:.66rem;gap:.4rem;}
+ .flight-panel {bottom:.9rem;padding-top:.55rem;gap:.25rem;}.flight-panel button,.scroll-cue {font-size:.75rem;}
+ .flight-scale {gap:.12rem;}.flight-scale i {width:.62rem;}
+ .scroll-cue {font-size:0;}.scroll-cue .scroll-line {width:12px;height:19px;}.flight-motion {gap:.4rem;}
+ .world-tabs{margin-top:.62rem;}.world-tabs button{padding:.36rem .6rem;font-size:.79rem;}
+ .readout-actions a,.readout-actions button {font-size:.82rem;}
+ .chapter-head {align-items:flex-start;flex-direction:column;gap:.8rem;margin-bottom:1.3rem;}
+ .chapter-head h2 {margin-top:.45rem;}.planet-cards {grid-template-columns:1fr 1fr;gap:.7rem;}
+ .planet-card {min-height:0;aspect-ratio:.92;padding:.8rem;}.planet-card h3{font-size:1.8rem;}.meta-type {font-size:.66rem;}.plus-icon{width:1.3rem;height:1.3rem;}
+ .work-rows>a {grid-template-columns:1fr;gap:.4rem;padding:1.2rem 0;}.work-result{text-align:left;}
+ .portrait-chapter {grid-template-columns:1fr;gap:1.8rem;}.portrait-chapter figure{max-height:370px;}.portrait-chapter h2 {font-size:3.8rem;}
+ .star-footer>.star-wrap {align-items:flex-start;flex-direction:column;}.star-footer nav{gap:.8rem;}
+ .planet-notes .note-list {grid-template-columns:1fr;}.note-list article img {aspect-ratio:2.2;}
+}
+@media(max-width:360px){.star-top {gap:.2rem;}.header-tools{gap:.25rem;}.guide-trigger,.menu-trigger{padding:.43rem .5rem;}.star-brand{font-size:.88rem;}.flight-captions h1{font-size:3.05rem;}.flight-readout .flight-summary{font-size:.9rem;}}
+@media(max-height:650px) and (min-width:720px){.flight-track{--window:clamp(440px,calc(100svh - var(--header)),590px);}.flight-captions h1{font-size:4.6rem;}.flight-summary{font-size:.94rem;}.flight-captions{top:43%;}.flight-captions h1,.flight-readout h2{margin:.65rem 0;}}
+@media(prefers-reduced-motion:reduce){.planet-card img {transition:none;}.galaxy-plate {transform:none;}}
+@media print{.star-header,.flight-track,.star-footer,.cosmic-site .assistant-launch,.flight-panel,.header-tools{display:none!important;}.cosmic-site,.cosmic-site .tinted,.cosmic-site .project-card{background:white;color:black;}.chapter,.inner-intro{padding:1rem 0;}}
+
+.reading-desk {border-top:1px solid var(--line);}
+.desk-columns {display:grid;grid-template-columns:1fr 1fr;gap:clamp(2.4rem,6vw,6rem);}
+.desk-columns h3 {color:#f4d8c8;font:500 1.09rem var(--body);}
+.desk-columns ul {padding:0;margin:.9rem 0 1.4rem;list-style:none;}
+.desk-columns li {padding:1.1rem 0;border-top:1px solid #363543;}
+.desk-columns small {display:block;font-size:.77rem;color:#bcb2c4;margin-bottom:.42rem;}
+.desk-columns li a {display:inline-block;color:#f0e8f3;text-decoration:none;font:400 1.55rem/1.18 var(--display);}
+.desk-columns li a:hover {color:#f6c29f;text-decoration:underline;}
+.planet-turn {position:absolute;right:6%;top:13%;z-index:1;display:flex;gap:.3rem;}
+.planet-turn[hidden] {display:none;}
+.planet-turn button {padding:.35rem .7rem;border:1px solid #645e74;background:#101321dd;color:#eedacf;border-radius:2rem;line-height:1.1;}
+@media(max-width:719px){.desk-columns{grid-template-columns:1fr;}.planet-turn{top:1rem;right:5%;}.planet-turn button{min-height:32px;}}
+@media(max-width:719px) and (max-height:670px){
+ .flight-track{--window:clamp(430px,calc(100svh - var(--header)),610px);}
+ .flight-captions{bottom:3.55rem;}
+ .flight-captions h1,.flight-readout h2{font-size:2.8rem;}
+ .flight-captions .flight-summary{font-size:.9rem;}
+ .flight-panel{bottom:.45rem;}
+}

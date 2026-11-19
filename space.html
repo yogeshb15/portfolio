@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080a13"><title>Space atlas | Dr. Yogesh Bhardwaj</title>
+<meta name="description" content="Zoom from a spiral galaxy to Earth, Mars, Jupiter and Saturn. Explore planetary field notes and the interactive observatory.">
+<link rel="canonical" href="https://yogeshb15.github.io/portfolio/space.html"><meta property="og:type" content="website"><meta property="og:url" content="https://yogeshb15.github.io/portfolio/space.html">
+<meta property="og:title" content="Space atlas | Dr. Yogesh Bhardwaj"><meta property="og:description" content="Zoom from a spiral galaxy to Earth, Mars, Jupiter and Saturn. Explore planetary field notes and the interactive observatory.">
+<meta property="og:image" content="https://yogeshb15.github.io/portfolio/assets/spiral-atlas.webp">
+<link rel="icon" href="assets/mark.png">
+<link rel="preload" as="image" href="assets/spiral-atlas.webp">
+<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="star-site.css">
+<script defer src="site.js"></script>
+<script defer src="field-guide.js"></script>
+<script defer src="gallery-stations.js"></script>
+<script defer src="atlas-data.js"></script>
+<script defer src="portfolio-knowledge.js"></script>
+<script defer src="assistant.js"></script>
+<script defer src="scene.js"></script>
+<script defer src="cosmic-flight.js"></script>
+<script defer src="star-site.js"></script>
+<noscript><style>.flight-panel,.guide-trigger,.galaxy-tag{display:none}@media(max-width:719px){.star-top{height:auto;flex-wrap:wrap;padding-block:.55rem}.star-top nav{display:flex;flex-wrap:wrap;gap:.7rem;width:100%}.star-top nav a{padding:.15rem 0}}</style></noscript>
+</head><body class="cosmic-site" data-page="space.html">
+<a class="skip" href="#main">Skip to content</a><header class="star-header"><div class="star-wrap star-top">
+ <a class="star-brand" href="./"><span class="orbit-sign" aria-hidden="true"></span><span>Yogesh Bhardwaj</span></a>
+ <nav id="site-navigation" aria-label="Main navigation"><a href="space.html" aria-current="page">Space atlas</a><a href="research.html">Research</a><a href="profile.html">Profile</a><a href="credentials.html">Certificates</a></nav>
+ <div class="header-tools"><button class="guide-trigger" type="button" data-open-assistant hidden><span class="guide-star" aria-hidden="true">✧</span> Ask the guide</button><button class="menu-trigger" type="button" aria-controls="site-navigation" aria-expanded="false" hidden>Menu</button></div>
+ </div></header>
+<main id="main"><section class="flight-track" aria-label="Galaxy to planet journey"><div class="flight-window" data-phase="galaxy">
+ <div class="galaxy-plate" aria-hidden="true"></div><div class="flight-stage" role="img" aria-label="Interactive spiral galaxy and planet models"></div><div class="flight-fade" aria-hidden="true"></div>
+ <div class="flight-captions"><div class="flight-intro"><p class="kicker"><i></i>Interactive star atlas</p><h1><span>The space</span><em>atlas.</em></h1><p class="flight-summary">Travel from a spiral galaxy to four worlds in our Solar System. Select a planet, turn the globe and read its field notes.</p>
+ <div class="flight-actions"><a class="astro-primary" href="space.html#planet-notes" data-depth="1">Fly to the planets</a><a class="plain-link" href="#planet-notes">Read the field notes</a></div></div>
+ <div class="flight-readout" hidden><p class="kicker"><i></i><span></span></p><h2></h2><p class="flight-summary"></p>
+ <div class="world-tabs" role="group" aria-label="Choose a planet"><button type="button" data-world="earth">Earth</button><button type="button" data-world="mars">Mars</button><button type="button" data-world="jupiter">Jupiter</button><button type="button" data-world="saturn">Saturn</button></div>
+ <div class="readout-actions"><a class="plain-link world-notes" href="#planet-notes">Planet field notes</a><button class="subtle-button" type="button" data-ask-flight>Ask about this view</button></div></div></div>
+ <div class="planet-turn" role="group" aria-label="Rotate the globe" hidden><button type="button" data-turn="-1" aria-label="Rotate planet left">←</button><button type="button" data-turn="1" aria-label="Rotate planet right">→</button></div>
+ <div class="flight-pins" aria-label="Planets in view"></div>
+ <a class="galaxy-tag" data-depth="1" href="space.html" aria-label="Zoom from the spiral galaxy into the Solar System"><i></i><span>Spiral galaxy</span></a>
+ <div class="flight-panel"><a class="scroll-cue" href="#planet-notes"><span class="scroll-line" aria-hidden="true"></span>Scroll to explore</a>
+ <div class="flight-scale" aria-label="Zoom level"><button type="button" data-depth="0" aria-pressed="true">Galaxy</button><i></i><button type="button" data-depth="1" aria-pressed="false">Solar system</button><i></i><button type="button" data-depth="2" aria-pressed="false">Planet</button></div>
+ <button type="button" class="flight-motion" aria-pressed="false"><i aria-hidden="true"></i><span>Pause motion</span></button></div>
+ </div></section><section id="planet-notes" class="star-wrap chapter planet-notes"><div class="chapter-head"><div><p class="kicker"><i></i>Planetary science</p><h2>The planetary field notes.</h2></div></div><div class="note-list"><article id="note-earth"><img src="assets/card-earth.webp" loading="lazy" width="660" height="440" alt=""><div><p class="meta-type">Ocean world</p><h3>Earth</h3><p>Look for the oceans between the continents. Together they cover about 71% of Earth’s surface.</p><div class="note-actions"><a class="plain-link" data-visit="earth" href="space.html?planet=earth">Explore in 3D</a><a href="https://science.nasa.gov/earth/facts/">NASA field notes</a></div></div></article><article id="note-mars"><img src="assets/card-mars.webp" loading="lazy" width="660" height="440" alt=""><div><p class="meta-type">Rocky planet</p><h3>Mars</h3><p>Valles Marineris cuts across the crust for about 3,870 kilometres. From orbit, the canyon system looks like a long scar.</p><div class="note-actions"><a class="plain-link" data-visit="mars" href="space.html?planet=mars">Explore in 3D</a><a href="https://science.nasa.gov/mars/facts/">NASA field notes</a></div></div></article><article id="note-jupiter"><img src="assets/card-jupiter.webp" loading="lazy" width="660" height="440" alt=""><div><p class="meta-type">Gas giant</p><h3>Jupiter</h3><p>Dark belts and bright zones wrap around Jupiter. Neighbouring bands of clouds can move in opposite directions.</p><div class="note-actions"><a class="plain-link" data-visit="jupiter" href="space.html?planet=jupiter">Explore in 3D</a><a href="https://science.nasa.gov/jupiter/jupiter-facts/">NASA field notes</a></div></div></article><article id="note-saturn"><img src="assets/card-saturn.webp" loading="lazy" width="660" height="440" alt=""><div><p class="meta-type">Ringed gas giant</p><h3>Saturn</h3><p>Look between the bright A and B rings. The Cassini Division separates them across a gap roughly 4,700 kilometres wide.</p><div class="note-actions"><a class="plain-link" data-visit="saturn" href="space.html?planet=saturn">Explore in 3D</a><a href="https://science.nasa.gov/saturn/facts/">NASA field notes</a></div></div></article></div></section><section id="observatory" class="star-wrap orbit-studio observatory" aria-labelledby="observatory-title">
+        <img src="assets/lunar-observatory.webp" width="1920" height="768" alt="" loading="lazy">
+        <div class="observatory-caption">
+          <h2 id="observatory-title">The observatory</h2>
+          <p>Follow light through a telescope, pluck a guitar string or steer by a compass. Beyond the studio, fly to Saturn’s rings and descend into a lunar crater.</p>
+          <div class="instrument-controls" role="group" aria-label="Explore the observatory in 3D">
+              <button class="scene-button primary-view" id="explore-scene" data-instrument="reset" type="button" hidden>Enter the observatory</button>
+              <button class="instrument" data-instrument="solar" type="button" hidden>Space</button>
+              <button class="instrument" data-instrument="guitar" type="button" hidden>Guitar</button>
+              <button class="instrument" data-instrument="telescope" type="button" hidden>Telescope</button>
+              <button class="instrument" data-instrument="compass" type="button" hidden>Compass</button>
+            </div>
+        </div>
+      </section><section class="star-wrap source-note"><h2>About this atlas</h2><p>The spiral galaxy is an artist’s illustration. The flight compresses distances and planet sizes so you can compare four selected worlds. The planet placements show an illustrative arrangement.</p><p class="atlas-credits">Adapted globe imagery from <a href="https://science.nasa.gov/earth/earth-observatory/the-blue-marble-true-color-global-imagery-at-1km-resolution/">NASA Goddard’s Blue Marble, by Reto Stöckli and Robert Simmon</a>, <a href="https://maps.jpl.nasa.gov/tmaps/mars.html">NASA/JPL-Caltech/USGS for Mars</a> and <a href="https://www.jpl.nasa.gov/images/pia07782-cassinis-best-maps-of-jupiter-cylindrical-map/">NASA/JPL/Space Science Institute for Jupiter</a>. Saturn uses <a href="https://maps.jpl.nasa.gov/tmaps/saturn.html">Don Davis’s cloud illustration for JPL/Caltech</a> and modeled rings.</p><a class="plain-link" href="gallery.html">Visit the instrument gallery</a></section></main>
+<footer class="star-footer"><div class="star-wrap"><a href="./" class="star-brand"><span class="orbit-sign" aria-hidden="true"></span>Yogesh Bhardwaj</a><nav aria-label="Footer"><a href="space.html">Space atlas</a><a href="research.html">Research</a><a href="profile.html">Profile</a><a href="credentials.html">Certificates</a><a href="./#contact">Contact</a></nav><span>Delhi, India</span></div></footer></body></html>

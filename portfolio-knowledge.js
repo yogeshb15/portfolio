@@ -3,16 +3,16 @@
   "use strict";
 
   const sections = {
-    project: ["Projects", "./#projects"],
-    job: ["Experience", "./#experience"],
-    paper: ["Research papers", "./#publications"],
-    degree: ["Degrees", "./#education"],
-    talk: ["Conference presentations", "./#education"],
-    award: ["Research awards", "./#awards"],
-    skill: ["Methods and tools", "./#skills"],
+    project: ["Projects", "research.html#projects"],
+    job: ["Experience", "profile.html#experience"],
+    paper: ["Research papers", "research.html#publications"],
+    degree: ["Degrees", "profile.html#education"],
+    talk: ["Conference presentations", "profile.html#education"],
+    award: ["Research awards", "profile.html#awards"],
+    skill: ["Methods and tools", "research.html#skills"],
     course: ["LinkedIn Learning certificates", "credentials.html"],
-    training: ["Other certifications", "./#certifications"],
-    exhibit: ["Observatory exhibits", "./#observatory"],
+    training: ["Other certifications", "credentials.html#other-training"],
+    exhibit: ["Observatory exhibits", "space.html#observatory"],
     info: ["Research portfolio", "./"]
   };
   const clean = s => (s || "").replace(/\s+/g, " ").trim();
@@ -67,7 +67,7 @@
     octave:"Select Open string and pluck to hear A2 at 110 Hz. At the twelfth fret the A string sounds A3 at 220 Hz.",
     declination:"The example control ranges from 35° west to 35° east. At 0° the true-north marker and magnetic needle align."
   };
-  function compile(home, credentials, guide) {
+  function compile(home, credentials, guide, research=home, profile=home) {
     const records = [];
     function add(type, title, body, options = {}) {
       if (!title) return;
@@ -79,32 +79,32 @@
       records.push(row);
       return row;
     }
-    for (const card of all(home,"#projects .project-card")) {
+    for (const card of all(research,"#projects .project-card")) {
       const title=get(card,"h3"), stack=get(card,"small"), domain=get(card,".micro");
       add("project",title,get(card,"p"),{meta:stack, alias:domain+" "+title.replace(/[^a-z0-9]/gi,""),
         summary:title+" · "+domain,links:[[title+" on GitHub",href(card,"a")]]});
     }
-    const current=home.querySelector("#experience .current");
+    const current=profile.querySelector("#experience .current");
     if (current) {
       const title=get(current,".company").split(" · ")[0], role=get(current,"h3");
       add("job",title,all(current,"p").map(text).join(" "),{id:"job:current",meta:[role,...get(current,".company").split(" · ").slice(1)].join(" · "),
         summary:title+" · "+role+" (current)",alias:"current employer current job presently now employed workplace benchmark benchmarking grader mathematics code"});
     }
-    for (const job of all(home,"#experience .entry")) {
+    for (const job of all(profile,"#experience .entry")) {
       const title=get(job,"strong"), role=get(job,"h4"), date=get(job,"small");
       add("job",title,get(job,"p"),{meta:role+" · "+date,date,summary:title+" · "+role+" · "+date,alias:role+" past employer former job"});
     }
-    for (const paper of all(home,".paper-list li")) {
+    for (const paper of all(research,".paper-list li")) {
       const title=get(paper,"h3"), date=get(paper,"time"), journal=get(paper,"p"), url=href(paper,"a");
       add("paper",title,journal,{meta:date,date,doi:url,summary:title+" ("+date+")",
         alias:[journal,url].filter(Boolean).join(" "),links:[["Open paper · DOI",url]]});
     }
-    for (const degree of all(home,".degrees > article")) {
+    for (const degree of all(profile,".degrees > article")) {
       const title=get(degree,"h3"), date=get(degree,"small"), school=get(degree,"strong");
       add("degree",title,get(degree,"p"),{meta:school+" · "+date,date,summary:title+" · "+school+" · "+date,
         alias:/phd/i.test(title)?"doctorate phd thesis dissertation highest":"",links:[sections.degree]});
     }
-    for(const entry of all(home,".degrees details")){
+    for(const entry of all(profile,".degrees details")){
       const isAward=entry.id==="awards";
       for(const item of all(entry,"li")){
         const body=clean([...item.childNodes].map(n=>n.nodeName==="BR"?" · ":n.textContent).join(""));
@@ -112,13 +112,13 @@
         add(isAward?"award":"talk",title,body,{summary:body,links:href(item,"a")?[[text(item),href(item,"a")]]:undefined});
       }
     }
-    for (const card of all(home,".skill-grid > div")) add("skill",get(card,"h3"),get(card,"p"),{summary:get(card,"h3")+" · "+get(card,"p")});
+    for (const card of all(research,".skill-grid > div")) add("skill",get(card,"h3"),get(card,"p"),{summary:get(card,"h3")+" · "+get(card,"p")});
     for(const card of all(credentials,".full-list .credential")){
       const title=get(card,"h3"), date=get(card,"time"), teacher=get(card,"small").split(" · ")[0],topic=card.getAttribute("data-topic") || "";
       add("course",title,topic,{meta:teacher+" · "+date,teacher,date,topic,
         summary:title+" · "+teacher+" · "+date,links:[["Open certificate",href(card,"h3 a")]]});
     }
-    for(const item of all(home,"#certifications details li")){
+    for(const item of (credentials.querySelector("#other-training")?all(credentials,"#other-training li"):all(home,"#certifications details li"))){
       const line=text(item),title=line.split(" · ")[0];
       add("training",title,line.replace(title+" · ",""),{summary:line});
     }
@@ -126,29 +126,35 @@
     function info(id,title,body,alias,links) {
       return add("info",title,body,{id:"info:"+id,alias,links});
     }
-    const figure = home.querySelector("#about img");
-    info("profile","Dr. Yogesh Bhardwaj",clean(get(home,"#about .role")+". "+get(home,"#about .intro-copy")),
-      "biography introduction background who about yourself tell me yourself speciality specialist",[["Meet Yogesh","./#about"]]);
-    if(figure)info("portrait","The mountain portrait",figure.getAttribute("alt"),"photo photograph picture hero mountains sunset silhouette site portrait image",[[ "Homepage portrait","./#about"]]);
-    info("coauthor","Research with Dr. C.P. Singh",get(home,"#publications .side-note"),
+    const figure = profile.querySelector("#about img");
+    info("profile","Dr. Yogesh Bhardwaj",clean(get(profile,"#about .role")+". "+get(profile,"#about .intro-copy")),
+      "biography introduction background who about yourself tell me yourself speciality specialist",[["Meet Yogesh","profile.html#about"]]);
+    if(figure)info("portrait","The mountain portrait",figure.getAttribute("alt"),"photo photograph picture hero mountains sunset silhouette site portrait image",[[ "Homepage portrait","profile.html#about"]]);
+    info("coauthor","Research with Dr. C.P. Singh",get(research,"#publications .side-note"),
       "co author coauthor collaborators collaborator partner coauthored cp singh publication overarching matter creation cosmic expansion focus", [sections.paper]);
-    info("hobbies","Beyond the desk",get(home,"#hobbies p"),"hobbies interests spare time outside work sport cricket badminton chess places travel parakram tournament university team", [["Beyond the desk","./#hobbies"]]);
+    info("hobbies","Beyond the desk",get(research,"#hobbies p"),"hobbies interests spare time outside work sport cricket badminton chess places travel parakram tournament university team", [["Beyond the desk","research.html#hobbies"]]);
     const address=get(home,"#contact .email"), contactBody=clean(get(home,"#contact .side-note")+" "+get(home,"#contact .contact-extra"));
     info("contact","Contact Yogesh",clean(address+". "+contactBody),"email contact reach mail collaboration recruiting hire job enquiry inquiry recruiter write location city based delhi language hindi english",
       [homeLink("#contact .email",address),["Write an enquiry","./#contact"]]);
-    const accounts=[...all(home,"#contact .side-links a"),...all(home,"#publications .side-links a")];
+    const accounts=[...all(home,"#contact .side-links a"),...all(research,"#publications .side-links a")];
     for(const a of accounts)info(norm(text(a)),text(a),a.getAttribute("href"),"professional account social profile "+text(a),[[text(a),a.getAttribute("href")]]);
     const galleryLinks=["about","projects","experience","publications","education","skills","certifications","observatory","contact"]
-      .map(id=>[({about:"Portrait",publications:"Papers",skills:"Methods",certifications:"Learning"})[id] || id[0].toUpperCase()+id.slice(1),"./?station="+id]);
+      .map(id=>[({about:"Portrait",publications:"Papers",skills:"Methods",certifications:"Learning"})[id] || id[0].toUpperCase()+id.slice(1),"gallery.html?station="+id]);
     info("tour","Gallery tour","Tour the nine stations using the gallery map. Drag to orbit, use the left and right arrow keys to visit adjacent stations, A and D to turn, and plus or minus to zoom.",
       "museum gallery map tour station navigation research portfolio tour",galleryLinks);
     for(const station of window.PortfolioStations || []) {
       info("station-"+station.id,station.sculpture,station.detail+" "+station.copy,
-        station.name+" gallery station sculpture model object instrument",[["Visit the "+station.name+" station","./?station="+station.id]]);
+        station.name+" gallery station sculpture model object instrument",[["Visit the "+station.name+" station","gallery.html?station="+station.id]]);
+    }
+    if(window.StarAtlas){
+      info("flight","Galaxy flight","Scroll or use the Galaxy, Solar system and Planet controls to change scale. Select Earth, Mars, Jupiter or Saturn, then drag sideways to turn the globe. Scroll farther for field notes and the portfolio chapters. The spiral galaxy is an artist’s illustration and distances are compressed.",
+        "star atlas space atlas fly zoom galaxy planet flight scroll navigation",[["Explore the space atlas","space.html"]]);
+      for(const [id,w] of Object.entries(window.StarAtlas))info("world-"+id,w.name+" planet field note",w.note,
+        w.name+" "+w.kind+" planet field notes",[[w.name+" in 3D","space.html?planet="+id],["NASA · "+w.name,w.source]]);
     }
     if(guide?.stops) {
       for(const [key,stop] of Object.entries(guide.stops)) {
-        const url="./?exhibit="+encodeURIComponent(key)+"#observatory";
+        const url="space.html?exhibit="+encodeURIComponent(key)+"#observatory";
         const trail=[];
         for(let id=key;id && guide.stops[id];id=guide.stops[id].parent) trail.unshift(guide.stops[id].title);
         const sources=[[stop.title+" in 3D",url]];
@@ -285,6 +291,12 @@
     const existing=context?.ids?.map(byId).filter(Boolean)||[];
     const question=terms(q);
 
+    if(window.StarAtlas){
+      for(const id of Object.keys(window.StarAtlas)){
+        if(new RegExp("\\b"+id+"\\b").test(q) && !/moon|tycho|division|eclipse|instrument|exhibit/.test(q) && (id!=="saturn" || /field note|planet|atlas/.test(q)))return info("world-"+id);
+      }
+      if(/galaxy flight|space atlas|star atlas|spiral galaxy|fly to|zoom (?:in )?to the planets|which planets|what planets|how (?:can|do) i scroll/.test(q))return info("flight");
+    }
     const station=(window.PortfolioStations || []).find(s=>
       q.includes(norm(s.sculpture)) || (/\b(?:sculpture|gallery station|station|pedestal)\b/.test(q)
         && [s.name,s.id].some(name=>q.split(" ").includes(norm(name)))));
@@ -379,9 +391,13 @@
   async function load() {
     if(!pending) {
       pending=(async()=>{
-        const directory=Boolean(document.querySelector(".full-list .credential"));
-        const [home,credentials]=await Promise.all([directory?readPage("index.html"):document,directory?document:readPage("credentials.html")]);
-        return compile(home,credentials,window.observatoryGuide);
+        const page=document.body.dataset.page;
+        const current=(url,id)=>page===id?document:readPage(url);
+        const [home,credentials,research,profile]=await Promise.all([
+          current("index.html","home"),current("credentials.html","credentials.html"),
+          current("research.html","research.html"),current("profile.html","profile.html")
+        ]);
+        return compile(home,credentials,window.observatoryGuide,research,profile);
       })().catch(error=>{pending=null;throw error;});
     }
     return pending;
