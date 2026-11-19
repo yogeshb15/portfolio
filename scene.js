@@ -1,17 +1,18 @@
 // Load the 3D engine only after a visitor opens the observatory.
 (() => {
-  const trigger = document.querySelector("#explore-scene");
-  if (!trigger) return;
-  trigger.hidden = false;
+  const triggers = [...document.querySelectorAll("[data-instrument]")];
+  if (!triggers.length) return;
+  let opener;
   const panel = document.createElement("dialog");
   panel.className = "scene-dialog";
+  panel.id = "instrument-viewer";
   panel.setAttribute("aria-labelledby", "scene-title");
   panel.innerHTML = `
     <header><h2 id="scene-title">The observatory</h2><button type="button" class="close-dialog" aria-label="Close 3D view">×</button></header>
     <div class="stage" role="group" tabindex="0" aria-label="Interactive 3D observatory. Drag to orbit or use the left and right arrow keys."></div>
     <div class="scene-tools"><span class="scene-status" role="status">Loading the model…</span>
       <div><button type="button" data-view="left" aria-label="Rotate left">←</button><button type="button" data-view="right" aria-label="Rotate right">→</button>
-      <button type="button" data-view="compass">Compass close-up</button><button type="button" data-view="reset">Reset view</button></div>
+      <button type="button" data-view="reset">Full scene</button><button type="button" data-view="guitar">Guitar</button><button type="button" data-view="telescope">Telescope</button><button type="button" data-view="compass">Compass</button></div>
     </div>`;
   document.body.append(panel);
   const stage = panel.querySelector(".stage");
@@ -29,23 +30,40 @@
     });
     return engine;
   }
-  trigger.addEventListener("click", async () => {
-    panel.showModal();
-    try {
-      const T = await loadEngine();
-      if (!panel.open) return;
-      if (!viewer) viewer = buildViewer(T, stage);
-      viewer.setView("reset");
-      status.textContent = "Drag to orbit";
-      stage.focus();
-    } catch {
-      status.textContent = "The 3D view couldn’t load. Close to return to the artwork.";
+  const views = { reset: "Observatory", guitar: "Acoustic guitar", telescope: "Telescope", compass: "Jack Sparrow’s compass" };
+  function selectView(name) {
+    if (!viewer) return;
+    viewer.setView(name);
+    if (views[name]) {
+      status.textContent = views[name] + " · Drag to orbit";
+      for (const control of panel.querySelectorAll("[data-view]")) {
+        if (views[control.dataset.view]) control.setAttribute("aria-pressed", String(control.dataset.view === name));
+      }
     }
-  });
+  }
+  for (const trigger of triggers) {
+    trigger.hidden = false;
+    trigger.setAttribute("aria-haspopup", "dialog");
+    trigger.setAttribute("aria-controls", panel.id);
+    trigger.addEventListener("click", async () => {
+      opener = trigger;
+      status.textContent = "Loading the observatory…";
+      panel.showModal();
+      try {
+        const T = await loadEngine();
+        if (!panel.open || opener !== trigger) return;
+        if (!viewer) viewer = buildViewer(T, stage);
+        selectView(trigger.dataset.instrument);
+        stage.focus();
+      } catch {
+        status.textContent = "The 3D model couldn’t load. Close this view to return to the observatory artwork.";
+      }
+    });
+  }
   panel.querySelector(".close-dialog").addEventListener("click", () => panel.close());
-  panel.addEventListener("close", () => trigger.focus());
+  panel.addEventListener("close", () => opener?.focus());
   for (const button of panel.querySelectorAll("[data-view]")) {
-    button.addEventListener("click", () => viewer?.setView(button.dataset.view));
+    button.addEventListener("click", () => selectView(button.dataset.view));
   }
 
   function buildViewer(T, host) {
@@ -83,19 +101,19 @@
     };
 
     // Rocky exhibition base and a row of distant lunar peaks.
-    cylinder(scene,3.85,3.63,.24,material(0x283749,.08),0,-.15,0,64);
+    cylinder(scene,3.85,3.63,.24,material(0x323a37,.08),0,-.15,0,64);
     cylinder(scene,3.68,3.68,.045,brass,0,-.285,0,64);
     let seed=208;
     const random=()=>{seed=(1664525*seed+1013904223)>>>0;return seed/4294967296;};
     for(let i=0;i<58;i++) {
       const theta=random()*Math.PI*2, r=1.2+random()*2.46;
-      const rock=mesh(scene,new T.DodecahedronGeometry(.04+random()*.16),material(i%2?0x455166:0x394658),r*Math.cos(theta),.015,r*Math.sin(theta));
+      const rock=mesh(scene,new T.DodecahedronGeometry(.04+random()*.16),material(i%2?0x545a55:0x393f3b),r*Math.cos(theta),.015,r*Math.sin(theta));
       rock.scale.set(1.35,.48+random()*.3,.86);rock.rotation.y=theta;
     }
     for (let i=0;i<13;i++) {
       const angle=3.48+i*.19;
       const h=.22+random()*.53;
-      const peak=mesh(scene,new T.ConeGeometry(.36+random()*.3,h,5),material(0x43566e),3.24*Math.cos(angle),h*.39,3.24*Math.sin(angle));
+      const peak=mesh(scene,new T.ConeGeometry(.36+random()*.3,h,5),material(0x464c47),3.24*Math.cos(angle),h*.39,3.24*Math.sin(angle));
       peak.rotation.y=angle;
     }
     // Telescope, its mount, the finderscope and tapered wooden tripod.
@@ -116,7 +134,7 @@
     tube.rotation.z=-.99;
     cylinder(tube,.23,.13,2.85,brass,0,.27,0);
     for (const [y,r] of [[-.99,.15],[-.80,.17],[.55,.213],[1.63,.25],[1.72,.27]]) cylinder(tube,r,r,.075,gold,0,y,0);
-    cylinder(tube,.235,.235,.026,material(0x1c5464,.36,.22),0,1.766,0);
+    cylinder(tube,.235,.235,.026,material(0x21564c,.36,.22),0,1.766,0);
     cylinder(tube,.095,.073,.39,ebony,0,-1.29,0);
     cylinder(tube,.10,.10,.07,gold,0,-1.51,0);
     rod(tube,v(-.22,-.82,0),v(-.22,-.05,0),.053,brass);
@@ -185,11 +203,11 @@
     box(compass,.16,.10,.045,gold,0,.0,.51);
 
     const eclipse=group(scene,0,2.55,-3.3);
-    mesh(eclipse,new T.SphereGeometry(.88,32,20),material(0x152032,.13),0,0,0);
-    ring(eclipse,.905,.047,new T.MeshBasicMaterial({color:0xffb74c}),0,0,.01);
-    scene.add(new T.HemisphereLight(0xe3f1ff,0x576174,2.0));
-    const key=new T.DirectionalLight(0xffddab,2.45);key.position.set(-3,6,4);scene.add(key);
-    const rim=new T.DirectionalLight(0x93dfff,2.1);rim.position.set(4,3,-3);scene.add(rim);
+    mesh(eclipse,new T.SphereGeometry(.88,32,20),material(0x181d1b,.13),0,0,0);
+    ring(eclipse,.905,.047,new T.MeshBasicMaterial({color:0xd2f8e4}),0,0,.01);
+    scene.add(new T.HemisphereLight(0xe9f4ec,0x515d55,2.0));
+    const key=new T.DirectionalLight(0xffe6cb,2.45);key.position.set(-3,6,4);scene.add(key);
+    const rim=new T.DirectionalLight(0xaaf9d5,2.1);rim.position.set(4,3,-3);scene.add(rim);
 
     // A projected-face renderer keeps the same rotatable geometry available without WebGL.
     const canvas=document.createElement("canvas");
@@ -284,6 +302,8 @@
     const render=()=>{if(!queued){queued=true;requestAnimationFrame(draw);}};
     const setView=mode=>{
       if(mode==="compass"){angle=.30;pitch=.72;distance=2.8;target=v(1.88,.48,1.05);}
+      else if(mode==="guitar"){angle=.10;pitch=.14;distance=4.6;target=v(-1.57,1.62,.72);}
+      else if(mode==="telescope"){angle=.34;pitch=.20;distance=5.5;target=v(.35,2,-.35);}
       else if(mode==="reset"){angle=.23;pitch=.30;distance=10.2;target=v(0,1.35,0);}
       else angle+=(mode==="left"?-.22:.22);
       render();

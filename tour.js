@@ -1,20 +1,20 @@
 // Sections occupy distinct positions around a rotating CSS 3D cylinder.
 (() => {
   const chapters = [
-    ["Research projects", "Eight public repositories, from a cosmology benchmark generator to a neural surrogate for distance moduli.", "./#projects", "signals.webp"],
-    ["Experience", "Benchmark development at Wipro and earlier work evaluating mathematical, coding and multimodal reasoning.", "./#experience", "eclipse-studio.webp"],
-    ["Publications", "Five peer-reviewed papers on matter creation, exotic fluids and cosmic acceleration.", "./#publications", "phase.webp"],
+    ["Research projects", "Inspect reference solvers, neural surrogates and supernova analyses across eight public repositories.", "./#projects", "signals.webp"],
+    ["Experience", "Follow Yogesh’s work from evaluating model responses to designing the benchmarks and reference solvers that test them.", "./#experience", "lunar-observatory.webp"],
+    ["Publications", "Read five papers examining how matter creation, exotic fluids and modified gravity affect cosmic expansion.", "./#publications", "phase.webp"],
     ["Education", "A doctorate in Applied Mathematics from Delhi Technological University, following an MSc and BSc.", "./#education", "surface.webp"],
-    ["Technical skills", "Reference solvers, numerical integration, statistical inference and the Python scientific computing stack.", "./#skills", "signals.webp"],
-    ["Credentials", "A searchable collection of 22 LinkedIn Learning courses and one learning path, each with its certificate.", "credentials.html", "surface.webp"],
-    ["Contact", "Send Yogesh a research question, a collaboration proposal or a professional enquiry.", "./#contact", "eclipse-studio.webp"]
+    ["Technical skills", "Explore the mathematics and software behind the work, from numerical integration to statistical inference.", "./#skills", "signals.webp"],
+    ["Certificates", "Find completion certificates in model evaluation, agent development, machine learning and Python.", "credentials.html", "surface.webp"],
+    ["Contact", "Write to Yogesh about a research question, a potential collaboration or an engineering role.", "./#contact", "lunar-observatory.webp"]
   ];
   const triggers=[...document.querySelectorAll("[data-open-tour]")];
   if (!triggers.length) return;
   const dialog=document.createElement("dialog");
   dialog.className="tour-dialog";
   dialog.setAttribute("aria-labelledby","tour-title");
-  dialog.innerHTML=`<header><h2 id="tour-title">Portfolio in 3D</h2><button type="button" class="close-dialog" aria-label="Close tour">×</button></header>
+  dialog.innerHTML=`<header><h2 id="tour-title">Research in 3D</h2><button type="button" class="close-dialog" aria-label="Close tour">×</button></header>
     <div class="tour-window" tabindex="0" role="group" aria-label="Portfolio chapters. Swipe or use the left and right arrow keys."><div class="tour-wheel"></div></div>
     <div class="tour-controls"><button type="button" class="chapter-prev" aria-label="Previous section">←</button><span class="chapter-status" role="status"></span><button type="button" class="chapter-next" aria-label="Next section">→</button></div>`;
   document.body.append(dialog);
@@ -26,7 +26,7 @@
     const body=document.createElement("div");
     const heading=document.createElement("h3");heading.textContent=name;
     const copy=document.createElement("p");copy.textContent=desc;
-    const link=document.createElement("a");link.href=href;link.textContent="Open "+name.toLowerCase()+" →";link.className="text-link";
+    const link=document.createElement("a");link.href=href;link.textContent=({"Research projects":"Explore the code","Experience":"View experience","Publications":"Read the papers","Education":"View degrees","Technical skills":"Explore the methods","Certificates":"Find a certificate","Contact":"Write to Yogesh"})[name]+" →";link.className="text-link";
     link.addEventListener("click",()=>dialog.close());
     body.append(heading,copy,link);card.append(art,body);wheel.append(card);
     return card;

@@ -14,7 +14,7 @@ if (search) {
       credential.hidden = !(inText && inTopic);
       if (!credential.hidden) matches++;
     }
-    count.textContent = matches + (matches === 1 ? " credential" : " credentials");
+    count.textContent = matches + (matches === 1 ? " certificate" : " certificates");
     empty.hidden = matches > 0;
   }
 
@@ -57,7 +57,7 @@ function bindEnquiry(form) {
       if (/activat|confirm.{0,12}(recipient|address|form)/i.test(result.message || "")) {
         status.replaceChildren("Email forwarding is awaiting activation. ", fallback);
       } else if (response.ok && String(result.success) === "true") {
-        status.textContent = "Your enquiry was accepted for delivery to Yogesh.";
+        status.textContent = "The email service accepted your enquiry for delivery to Yogesh.";
         form.reset();
       } else {
         throw new Error("Enquiry submission declined");

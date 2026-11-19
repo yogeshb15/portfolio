@@ -15,7 +15,7 @@
   let preference = null;
   try { preference = localStorage.getItem("observatory-motion"); } catch {}
   let moving, frame = 0, previous = 0, phase = 0, w, h, active;
-  const surfaces = ".mount, .project-card, .current, .paper-list li, .degrees>article, .full-list .credential, .skill-grid>div";
+  const surfaces = ".portrait-mount, .project-card, .current, .paper-list li, .degrees>article, .full-list .credential, .skill-grid>div";
   for (const card of document.querySelectorAll(surfaces)) card.classList.add("depth-surface");
   // Stable star positions keep the backdrop continuous across redraws and settings changes.
   let seed = 9148;
@@ -30,7 +30,7 @@
       const x = w*(.5+(star.x+.035*Math.sin(phase*.06))/depth);
       const y = h*(.5+(star.y+travel+.022*Math.cos(phase*.07))/depth);
       if (x<0 || x>w || y<0 || y>h) continue;
-      ctx.fillStyle = 'rgba(178,204,228,'+Math.min(.7,.44/depth)+')';
+      ctx.fillStyle = 'rgba(173,204,186,'+Math.min(.49,.29/depth)+')';
       ctx.beginPath();ctx.arc(x,y,star.s/depth,0,Math.PI*2);ctx.fill();
     }
   }

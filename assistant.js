@@ -10,7 +10,7 @@
       id: "role",
       examples: ["where does he work", "where is he working now", "which company employs him", "current employer job title", "what is his current job", "who is his employer", "work at wipro", "AI research engineer", "professional experience and background", "previous employers turing innodata outlier", "what does he do for a living"],
       answer: "Yogesh is an AI Research Engineer at Wipro on a contractual basis. He builds and checks benchmarks for mathematical and coding reasoning. His earlier roles include Innodata, Turing and Outlier.",
-      link: ["Professional experience", "./#experience"]
+      link: ["Research experience", "./#experience"]
     },
     {
       id: "benchmarks",
@@ -22,12 +22,12 @@
       id: "publications",
       examples: ["what has he published", "list his papers", "cosmology publications", "research interests", "Chaplygin gas and matter creation", "dark energy modified gravity", "supernova expansion", "journal articles doi", "find his research on f(Q)", "google scholar"],
       answer: "Yogesh co-authored five cosmology papers with C. P. Singh. They examine how matter creation, Chaplygin gas, viscosity and modified gravity affect cosmic expansion. The publication list links to each paper by DOI.",
-      link: ["View publications", "./#publications"]
+      link: ["Read the papers", "./#publications"]
     },
     {
       id: "projects",
       examples: ["what projects has he built", "where is the code", "github repositories", "scientific machine learning projects", "neural surrogate CosmoEmulator-NN", "PINN CosmoSolver numerical methods", "supernova host galaxy mass predictor", "portfolio project list", "Hubble tension analyzer", "cosmosearch anomaly detector"],
-      answer: "The portfolio includes eight public projects. You can explore a cosmology benchmark generator, a neural emulator tested on simulated cosmologies and a physics-informed solver compared with RK45 integration.",
+      answer: "Yogesh has eight public research repositories. Good starting points are CosmoBench-Gen for grading reasoning errors, CosmoEmulator-NN for accelerating distance calculations, and PINN-CosmoSolver for comparison with RK45 integration.",
       link: ["Explore all eight projects", "./#projects"]
     },
     {
@@ -40,7 +40,7 @@
       id: "skills",
       examples: ["which skills and tools", "programming languages", "does he use python pytorch", "statistics mcmc scipy", "machine learning software", "what is his tech stack", "technical expertise"],
       answer: "His toolkit includes Python, SQL, MATLAB, Mathematica, NumPy, SciPy and PyTorch. For scientific inference he uses MCMC, numerical integration and model comparison.",
-      link: ["See technical skills", "./#skills"]
+      link: ["Explore methods and tools", "./#skills"]
     },
     {
       id: "credentials",
@@ -99,14 +99,14 @@
   dialog.setAttribute("aria-labelledby", "assistant-title");
   dialog.innerHTML = `
     <header class="assistant-head">
-      <div><h2 id="assistant-title">Portfolio assistant</h2><p>Dr. Yogesh Bhardwaj</p></div>
+      <div><h2 id="assistant-title">Ask about Yogesh</h2><p>Research and enquiries</p></div>
       <button type="button" class="close-dialog" aria-label="Close assistant">×</button>
     </header>
     <div class="assistant-scroll">
       <div class="conversation" role="log" aria-label="Conversation" aria-live="polite"></div>
       <div class="suggestions">
-        <button type="button" data-question="What benchmarks does he build?">Benchmark work</button>
-        <button type="button" data-question="What has he published?">Publications</button>
+        <button type="button" data-question="What benchmarks does he build?">How does he test AI?</button>
+        <button type="button" data-question="What has he published?">Find his papers</button>
         <button type="button" data-compose>Send an enquiry</button>
       </div>
       <form class="assistant-enquiry" action="https://formsubmit.co/yogeshb00015@gmail.com" method="post" hidden>
@@ -121,14 +121,14 @@
       </form>
     </div>
     <form class="ask-form"><label class="sr-only" for="assistant-question">Your question</label>
-      <input id="assistant-question" name="question" placeholder="Ask about Yogesh’s work…" maxlength="500" required autocomplete="off">
+      <input id="assistant-question" name="question" placeholder="Ask a research or career question…" maxlength="500" required autocomplete="off">
       <button type="submit" aria-label="Ask question">↑</button>
     </form>`;
   document.body.append(dialog);
   const launch = document.createElement("button");
   launch.type = "button";
   launch.className = "assistant-launch";
-  launch.innerHTML = '<span class="chat-mark" aria-hidden="true"></span> Ask assistant';
+  launch.innerHTML = '<span class="chat-mark" aria-hidden="true"></span> Ask about Yogesh';
   document.body.append(launch);
   const log = dialog.querySelector(".conversation");
   const ask = dialog.querySelector(".ask-form");
@@ -154,7 +154,7 @@
     }
     log.append(row);
   }
-  say("I can help you explore Yogesh’s work or send him an enquiry. What would you like to know?");
+  say("Ask me about Yogesh’s research, experience or certificates. To contact him directly, choose “Send an enquiry”.");
   function compose() {
     enquiry.hidden = false;
     suggestions.hidden = ask.hidden = log.hidden = true;
@@ -178,7 +178,7 @@
     else if (greeting) say("Hello! Ask about a project, publication or qualification, or choose “Send an enquiry” to write to Yogesh.");
     else {
       draftSuggestion = trimmed;
-      say("I don’t have a portfolio answer for that. Choose “Send an enquiry” and I’ll put your question into a draft for Yogesh.");
+      say("The portfolio doesn’t cover that question. Choose “Send an enquiry” to put it in a draft for Yogesh.");
     }
     log.lastElementChild.scrollIntoView({block:"nearest"});
     question.focus();
