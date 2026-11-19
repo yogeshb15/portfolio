@@ -23,33 +23,53 @@ if (search) {
   topic.addEventListener("change", filterCredentials);
 }
 
-const contact = document.querySelector("#contact-form");
-if (contact) {
-  contact.addEventListener("submit", async event => {
+
+// Both the contact section and the assistant send the visitor's reviewed enquiry.
+function bindEnquiry(form) {
+  const submit = form.querySelector('[type="submit"]');
+  const status = form.querySelector('[role="status"]');
+  form.addEventListener("submit", async event => {
     event.preventDefault();
-    const button = contact.querySelector("button");
-    const status = document.querySelector("#form-status");
-    const data = new FormData(contact);
-    if (button.disabled || data.get("_honey")) return;
-    button.disabled = true;
-    status.textContent = "Sending…";
+    const fields = new FormData(form);
+    if (submit.disabled || fields.get("_honey")) return;
+    submit.disabled = true;
+    status.textContent = "Sending your enquiry…";
+    const endpoint = new URL(form.action);
+    const recipient = endpoint.pathname.slice(1);
+    endpoint.pathname = "/ajax/" + recipient;
+    const fallback = document.createElement("a");
+    fallback.textContent = "Open your email app with this enquiry";
+    const draft = new URLSearchParams({
+      subject: fields.get("_subject"),
+      body: fields.get("message") + "\n\n" + fields.get("name") + "\n" + fields.get("email")
+    });
+    fallback.href = "mailto:" + recipient + "?" + draft.toString().replaceAll("+", "%20");
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 15000);
     try {
-      const endpoint = new URL(contact.action);
-      endpoint.pathname = "/ajax" + endpoint.pathname;
       const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify(Object.fromEntries(data)),
-        signal: AbortSignal.timeout(15000)
+        body: JSON.stringify(Object.fromEntries(fields)),
+        signal: controller.signal
       });
       const result = await response.json();
-      if (!response.ok || String(result.success) !== "true") throw new Error("Delivery failed");
-      status.textContent = "Message sent. Thank you for getting in touch.";
-      contact.reset();
+      if (/activat|confirm.{0,12}(recipient|address|form)/i.test(result.message || "")) {
+        status.replaceChildren("Email forwarding is awaiting activation. ", fallback);
+      } else if (response.ok && String(result.success) === "true") {
+        status.textContent = "Your enquiry was accepted for delivery to Yogesh.";
+        form.reset();
+      } else {
+        throw new Error("Enquiry submission declined");
+      }
     } catch {
-      status.textContent = "Your message could not be confirmed. You can email yogeshb00015@gmail.com directly.";
+      status.replaceChildren("Delivery could not be confirmed. Your draft is still here. ", fallback);
     } finally {
-      button.disabled = false;
+      clearTimeout(timeout);
+      submit.disabled = false;
     }
   });
 }
+
+const contactForm = document.querySelector("#contact-form");
+if (contactForm) bindEnquiry(contactForm);
