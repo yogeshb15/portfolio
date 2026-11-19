@@ -21,7 +21,7 @@
     {
       id: "publications",
       examples: ["what has he published", "list his papers", "cosmology publications", "research interests", "Chaplygin gas and matter creation", "dark energy modified gravity", "supernova expansion", "journal articles doi", "find his research on f(Q)", "google scholar"],
-      answer: "Yogesh co-authored five cosmology papers with C. P. Singh. They examine how matter creation, Chaplygin gas, viscosity and modified gravity affect cosmic expansion. The publication list links to each paper by DOI.",
+      answer: "Yogesh co-authored five cosmology papers with Dr. C.P. Singh. They examine how matter creation, Chaplygin gas, viscosity and modified gravity affect cosmic expansion. The publication list links to each paper by DOI.",
       link: ["Read the papers", "./#publications"]
     },
     {

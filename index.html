@@ -19,6 +19,7 @@
     <script defer src="atmosphere.js"></script>
     <script defer src="tour.js"></script>
     <script defer src="assistant.js"></script>
+    <script defer src="field-guide.js"></script>
     <script defer src="scene.js"></script>
   </head>
   <body>
@@ -289,7 +290,7 @@
             <span class="micro accent"><i></i>Cosmology</span>
             <h2>Research papers</h2>
           </div>
-          <p class="side-note">Across five papers, C. P. Singh and I study how matter creation, viscosity and modified gravity alter the expansion predicted by cosmological models.</p>
+          <p class="side-note">Across five papers, Dr. C.P. Singh and I study how matter creation, viscosity and modified gravity alter the expansion predicted by cosmological models.</p>
           <div class="side-links">
             <a class="text-link" href="https://scholar.google.com/citations?user=yfr75FUAAAAJ">Google Scholar <span class="external-arrow" aria-hidden="true"></span></a>
             <a class="text-link" href="https://orcid.org/0009-0008-6658-8333">ORCID <span class="external-arrow" aria-hidden="true"></span></a>
@@ -411,9 +412,10 @@
         <img src="assets/lunar-observatory.webp" width="1920" height="768" alt="" loading="lazy">
         <div class="observatory-caption">
           <h2 id="observatory-title">The observatory</h2>
-          <p>Step inside my virtual studio. Pick an instrument to see it up close.</p>
+          <p>Follow light through a telescope, pluck a guitar string or steer by a compass. Beyond the studio, fly to Saturn’s rings and descend into a lunar crater.</p>
           <div class="instrument-controls" role="group" aria-label="Explore the observatory in 3D">
-              <button class="scene-button primary-view" id="explore-scene" data-instrument="reset" type="button" hidden>Open the 3D scene <span aria-hidden="true">↗</span></button>
+              <button class="scene-button primary-view" id="explore-scene" data-instrument="reset" type="button" hidden>Enter the observatory</button>
+              <button class="instrument" data-instrument="solar" type="button" hidden>Space</button>
               <button class="instrument" data-instrument="guitar" type="button" hidden>Guitar</button>
               <button class="instrument" data-instrument="telescope" type="button" hidden>Telescope</button>
               <button class="instrument" data-instrument="compass" type="button" hidden>Compass</button>
